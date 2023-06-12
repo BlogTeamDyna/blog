@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DetailController extends AbstractController
 {
     // Afficher les articles
-    #[Route('/details'),]
+    #[Route('/details', name: 'form_success')]
     public function testAction(): Response
     {
 

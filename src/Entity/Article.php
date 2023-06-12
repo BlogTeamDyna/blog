@@ -15,6 +15,7 @@ class Article
     private int $id;
 
     #[ORM\Column(type: Types::STRING)]
+
     private string $title;
 
     #[ORM\Column(type: Types::STRING)]
