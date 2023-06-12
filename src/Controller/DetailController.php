@@ -9,20 +9,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DetailController extends AbstractController
 {
-    #[Route('/details')]
+    // Afficher les articles
+    #[Route('/details'),]
     public function testAction(): Response
     {
-        return $this->render("detail.html.twig");
+
+        $date = date("d-m-Y");
+
+        return $this->render("detail.html.twig", [
+            'date' => $date,
+        ]);
 
         // $number = random_int(0, 100);
 
         // return new Response(
         //     '<html><body>Lucky number: ' . $number . '</body></html>'
         // );
-    }
-
-    public function date()
-    {
-        return "Today is " . date("Y-m-d") . "<br>";
     }
 }
