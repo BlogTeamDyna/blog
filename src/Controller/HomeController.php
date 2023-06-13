@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/')]
+    #[Route('/', name: "homepage")]
     public function homeAction(): Response
     {
         //Recuperer tout les articles de la bdd

@@ -45,8 +45,13 @@ class Article
 
     public function setDescription(string $description): self
     {
-        $this->title = $description;
+        $this->description = $description;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

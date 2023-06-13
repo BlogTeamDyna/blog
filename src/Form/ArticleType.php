@@ -19,13 +19,15 @@ class ArticleType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'required' => true,
-                'label' => "Titre de l'article"
+                'label' => "Titre"
             ])
             ->add('description', TextareaType::class, [
                 'required' => true,
                 'label' => "Description"
             ])
-            ->add('Sauvegarder', SubmitType::class);
+            ->add('save', SubmitType::class, [
+                'label' => "sauvegarder"
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
