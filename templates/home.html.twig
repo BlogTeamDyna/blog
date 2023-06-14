@@ -1,7 +1,6 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-
 	<header class="">
 		<h1 class="text-center p-3 text-warning-emphasis bg-success-subtle border border-success-subtle rounded-5">Bobtche's Blog</h1>
 		<p class="p-2">Blog crée le 06/06/2023 copyrights(r)</p>
@@ -19,39 +18,30 @@
 		</header>
 
 		<main>
-			<p class="display-6 text-center">Funk Rap</p>
-			<p class="text-center">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over</p>
-			<button>
+
+			<button class="btn">
 				<a href="{{path('article_create')}}" style="text-decoration:none;">Créer article</a>
 			</button>
-			<div
-				class="container px-4">
-				{# <div class="row gx-2">
-																																													<div class="col ms-1">
-																																														<div class="p-5">
-																																															<div class="card" style="width: 18rem;">
-																																																<img src="https://www.trends.fr/wp-content/uploads/2017/02/gucci-mane-trapgod-tour-dates-1.jpg" class="card-img-top" alt="...">
-																																																<div class="card-body">
-																																																	<h5 class="card-title">Trap Rap</h5>
-																																																	<p class="card-text">Crée au états-unis, le rap a toujours été bercé par la culture US</p>
-																																																	<a href="/details" class="btn btn-primary">Détails</a>
-																																																</div>
-																																															</div>
-																																														</div>
-																																													</div> #}
-				<div class="col ms-1">
-					<div class="p-5">
-						<div class="card" style="width: 18rem;">
-							<img src="https://images.squarespace-cdn.com/content/v1/5efc4234201cfd62a7cb08b7/1620727341643-1F101ZDKRBS66DLFDUCM/SCP_Boom_Bap_Rap_AW-01.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Boom-Bap Rap</h5>
-								<p class="card-text">Crée au états-unis, le rap a toujours été bercé par la culture US</p>
-								<a href="/details" class="btn btn-primary">Détails</a>
+
+			<div class="container px-4">
+				<div class="row gx-2">
+					{% for article in articles %}
+						{# boucle en twig sur les articles reçus en parametres depuis le controller #}
+						<div class="col ms-1">
+							<div class="p-5">
+								<div class="card" style="width: 18rem;">
+									<img src="https://images.squarespace-cdn.com/content/v1/5efc4234201cfd62a7cb08b7/1620727341643-1F101ZDKRBS66DLFDUCM/SCP_Boom_Bap_Rap_AW-01.jpg" class="card-img-top" alt="...">
+									<div class="card-body">
+										<h5 class="card-title">{{ article.title }}</h5>
+										<p class="card-text">{{ article.description }}</p>
+										<a href="{{ path('article_details', { id : article.id }) }}" class="btn btn-primary">Détails</a>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
+					{% endfor %}
 				</div>
 			</div>
-		</div>
-	</p>
-</main>{% endblock %}
+		</p>
+	</main>
+{% endblock %}

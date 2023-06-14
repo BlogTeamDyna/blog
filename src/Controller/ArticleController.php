@@ -14,12 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Config\Doctrine;
 
 
+// OK supprimer detail controller 
+// OK reorganniser les templates: home et base dans la racine de templates et le reste dans le dossier article
 
 
-// Faire une route pour la création d'un article OK
-//Faire route pour Modification
-//Faire route pour Suppression
-//Faire route pour lecture(details) OK
+
 
 
 class ArticleController extends AbstractController
@@ -41,7 +40,7 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('article_details', ['id' => $article->getId()]);
         }
 
-        return $this->render('new.html.twig', [
+        return $this->render('article/new.html.twig', [
             'form' => $form,
         ]);
     }
@@ -49,8 +48,8 @@ class ArticleController extends AbstractController
     #[Route("/article/details/{id}", name: "article_details")]
     public function detailsAction(Article $article): Response
     {
-        return $this->render('detail.html.twig', [
-            'article' => $article,
+        return $this->render('article/detail.html.twig', [
+            'article' => $article
         ]);
     }
 
@@ -70,7 +69,7 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('article_details', ['id' => $article->getId()]);
         }
 
-        return $this->render('new.html.twig', [
+        return $this->render('article/new.html.twig', [
             'form' => $form,
         ]);
     }
