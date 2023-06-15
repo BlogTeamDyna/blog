@@ -4,44 +4,41 @@
 	<header class="">
 		<h1 class="text-center p-3 text-warning-emphasis bg-success-subtle border border-success-subtle rounded-5">Bobtche's Blog</h1>
 		<p class="p-2">Blog crée le 06/06/2023 copyrights(r)</p>
-		<div class="container">
-			<p class="text-center display-6">Salut l'ami !
-				<small class="text-body-secondary">Are you a fan of rap music or even the hip-hop culture as a whole ? You are at the right place !</small>
-			</p>
 
-			<div class="d-flex justify-content-center">
-				<button class="btn btn-primary">
-					<span class="spinner-border spinner-border-sm"></span>
-					Le site load...
-				</button>
-			</div>
-		</header>
+		<div class="d-flex justify-content-center">
+			<button class="btn btn-primary">
+				<span class="spinner-border spinner-border-sm"></span>
+				Le site load...
+			</button>
+		</div>
+	</header>
 
-		<main>
+	<main>
 
+		<div class="d-flex justify-content-center">
 			<button class="btn">
 				<a href="{{path('article_create')}}" style="text-decoration:none;">Créer article</a>
 			</button>
+		</div>
 
-			<div class="container px-4">
-				<div class="row gx-2">
-					{% for article in articles %}
-						{# boucle en twig sur les articles reçus en parametres depuis le controller #}
-						<div class="col ms-1">
-							<div class="p-5">
-								<div class="card" style="width: 18rem;">
-									<img src="https://images.squarespace-cdn.com/content/v1/5efc4234201cfd62a7cb08b7/1620727341643-1F101ZDKRBS66DLFDUCM/SCP_Boom_Bap_Rap_AW-01.jpg" class="card-img-top" alt="...">
-									<div class="card-body">
-										<h5 class="card-title">{{ article.title }}</h5>
-										<p class="card-text">{{ article.description }}</p>
-										<a href="{{ path('article_details', { id : article.id }) }}" class="btn btn-primary">Détails</a>
-									</div>
+		<div class="container px-4">
+			<div class="row gx-2">
+				{% for article in articles %}
+					{# boucle en twig sur les articles reçus en parametres depuis le controller #}
+					<div class="col ms-1">
+						<div class="p-5">
+							<div class="card" style="width: 18rem;">
+								<img src="https://images.squarespace-cdn.com/content/v1/5efc4234201cfd62a7cb08b7/1620727341643-1F101ZDKRBS66DLFDUCM/SCP_Boom_Bap_Rap_AW-01.jpg" class="card-img-top" alt="...">
+								<div class="card-body">
+									<h5 class="card-title">{{ article.title }}</h5>
+									<p class="card-text">{{ article.description }}</p>
+									<a href="{{ path('article_details', { id : article.id }) }}" class="btn btn-primary">Détails</a>
 								</div>
 							</div>
 						</div>
-					{% endfor %}
-				</div>
+					</div>
+				{% endfor %}
 			</div>
-		</p>
-	</main>
-{% endblock %}
+		</div>
+	</p>
+</main>{% endblock %}

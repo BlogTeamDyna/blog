@@ -19,8 +19,8 @@ class HomeController extends AbstractController
         return $this->render('home.html.twig', [
             'articles' => $articles,
         ]);
-        //Recuperer tout les articles de la bdd
-        //Envoyer en paramètre les articles au twig
+        // OK Recuperer tout les articles de la bdd
+        // OK Envoyer en paramètre les articles au twig
 
     }
 }

@@ -7,7 +7,19 @@
 	<h3 class="text-center display-6">{{ article.title }}</h3>
 	<p class="text-center display-6">{{ article.description }}</p>
 
-	{# <h6>{{ date }}</h6> #}
+	<div class="bouton d-flex justify-content-center">
+		<a class="btn btn-primary" href="{{path('article_edit', { id : article.id }) }}">✍</a>
+		<a id="supp" class="btn btn-primary" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">supprimer</a>
+	</div>
 
-
+	<script>
+		function deleteAlert() {
+if (confirm("Etes-vous sûr de supprimer cet article ?") === true) {
+return true;
+} else {
+event.stopPropagation();
+event.preventDefault();
+}
+}
+	</script>
 {% endblock %}
