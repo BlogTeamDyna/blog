@@ -3,23 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentary;
 use App\Form\ArticleType;
-use Doctrine\ORM\EntityManager;
+use App\Form\CommentaryType;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
+use Monolog\Handler\RedisPubSubHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Config\Doctrine;
-
-
-// OK supprimer detail controller 
-// OK reorganniser les templates: home et base dans la racine de templates et le reste dans le dossier article
-
-
-
-
 
 class ArticleController extends AbstractController
 {
@@ -37,7 +29,7 @@ class ArticleController extends AbstractController
             $em->persist($article);
             $em->flush();
 
-            return $this->redirectToRoute('article_details', ['id' => $article->getId()]);
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('article/new.html.twig', [
@@ -46,17 +38,42 @@ class ArticleController extends AbstractController
     }
 
     #[Route("/article/details/{id}", name: "article_details")]
-    public function detailsAction(Article $article): Response
+    public function detailsAction(Article $article, EntityManagerInterface $em, Request $request): Response
     {
+        $user = $this->getUser();
+        $commentary = new Commentary();
+        $commentary->setArticle($article);
+        $commentary->setUser($user);
+
+
+        $commentaries = $em->getRepository(Commentary::class)->findBy(['article' => $article] , ["created" => "DESC"]);
+
+        $form = $this->createForm(CommentaryType::class, $commentary);
+
+        $form->handleRequest($request);
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($commentary);
+            $em->flush();
+
+            return $this->redirectToRoute('article_details',[
+                'id' => $article->getId(),
+            ]);
+        }
+
         return $this->render('article/detail.html.twig', [
-            'article' => $article
+            'article' => $article,
+            'form' => $form->createView(),
+            'commentary' => $commentary,
+            'commentaries' => $commentaries
         ]);
     }
 
     #[Route("/article/edit/{id}", name: "article_edit")]
     public function editAction(EntityManagerInterface $em, Request $request, Article $article): Response
     {
-
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
@@ -66,7 +83,7 @@ class ArticleController extends AbstractController
             $em->persist($article);
             $em->flush();
 
-            return $this->redirectToRoute('article_details', ['id' => $article->getId()]);
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('article/new.html.twig', [
@@ -82,4 +99,6 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('homepage');
     }
+
+
 }

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tag{% endblock %}
+
+{% block body %}
+    <h1>Tag index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Contenu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+            <tr>
+                <td>{{ tag.id }}</td>
+                <td>{{ tag.content }}</td>
+                <td>
+                    <a href="{{ path('app_tag_show', {'id': tag.id}) }}">afficher</a>
+                    <a href="{{ path('app_tag_edit', {'id': tag.id}) }}">modifer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun tag </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tag_new') }}">Créer</a>
+    <a href="{{ path('homepage') }}">Home</a>
+{% endblock %}

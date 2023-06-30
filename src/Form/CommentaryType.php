@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Commentary;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -11,23 +12,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
-class ArticleType extends AbstractType
+class CommentaryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, [
+            ->add('comment', TextareaType::class, [
                 'required' => true,
-                'label' => "Titre"
+                'label' => "commentaire :"
             ])
-            ->add('description', TextareaType::class, [
-                'required' => true,
-                'label' => "Description"
-            ])
-            ->add('tags', TagType::class)
-
             ->add('save', SubmitType::class, [
-                'label' => "sauvegarder"
+                'label' => "Ajouter"
             ]);
     }
 
@@ -35,7 +30,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver):void
     {
         $resolver->setDefaults([
-            'data_class' => Article::class,
+            'data_class' => Commentary::class,
         ]);
     }
 }

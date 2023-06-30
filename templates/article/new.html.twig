@@ -1,4 +1,17 @@
 {% extends "base.html.twig" %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
-	{{ form(form) }}{% endblock %}
+	<h4 class="container text-center border border-warning-subtle text-center rounded-3">Créer un article</h4>
+	<div class="container">
+		{{ form_start(form) }}
+		<p>{{ form_row(form.title) }}</p>
+		<p>{{ form_row(form.description) }}</p>
+		<div class="d-flex justify-content-center">
+			<p class="text-center">{{ form_row(form.save) }}</p>
+		</div>
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
