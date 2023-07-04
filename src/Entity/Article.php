@@ -2,19 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 
-
-
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
 {
-
-
     #[ORM\Column(type: Types::INTEGER)]
     #[ORM\Id, ORM\GeneratedValue(strategy: 'AUTO')]
     private int $id;
