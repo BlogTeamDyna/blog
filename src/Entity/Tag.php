@@ -45,33 +45,34 @@ class Tag
     }
     public function __toString()
     {
-        return $this->content;
+        return strval($this->content);
+//        return $this->content;
     }
 
     /**
      * @return Collection<int, Article>
      */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
-
-    public function addArticle(Article $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles->add($article);
-            $article->addTag($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        if ($this->articles->removeElement($article)) {
-            $article->removeTag($this);
-        }
-
-        return $this;
-    }
+//    public function getArticles(): Collection
+//    {
+//        return $this->articles;
+//    }
+//
+//    public function addArticle(Article $article): self
+//    {
+//        if (!$this->articles->contains($article)) {
+//            $this->articles->add($article);
+//            $article->addTag($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeArticle(Article $article): self
+//    {
+//        if ($this->articles->removeElement($article)) {
+//            $article->removeTag($this);
+//        }
+//
+//        return $this;
+//    }
 }

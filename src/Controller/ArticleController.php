@@ -7,7 +7,6 @@ use App\Entity\Commentary;
 use App\Form\ArticleType;
 use App\Form\CommentaryType;
 use Doctrine\ORM\EntityManagerInterface;
-use Monolog\Handler\RedisPubSubHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends AbstractController
 {
-
     #[Route("/article/new", name: "article_create")]
     public function createAction(Request $request, EntityManagerInterface $em, Article $article = null): Response
     {
@@ -51,8 +49,6 @@ class ArticleController extends AbstractController
         $form = $this->createForm(CommentaryType::class, $commentary);
 
         $form->handleRequest($request);
-
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($commentary);

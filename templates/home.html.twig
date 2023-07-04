@@ -14,21 +14,33 @@
 	<main>
 
 		<div class="d-flex justify-content-center">
-			<button class="btn">
+			<button class="btn btn-info">
 				<a href="{{path('article_create')}}" style="text-decoration:none;">Créer article</a>
 			</button>
 		</div>
 
 		<div id="calli" class="container px-4">
 			<div class="row gx-2">
+{#				{% for tag in article.tags %}#}
+					{{ form_start(form,{attr: {class: 'filter'}}) }}
+					<p>{{ form_row(form.tags) }}</p>
+					{{ form_end(form) }}
+{#				{% endfor %}#}
+{#				{{ form_start(form) }} #}
+{#				<p>{{ form_row(form.tags) }}</p>#}
+{#				{{ form_end(form) }}#}
+
 				{% for article in articles %}
 					<div class="col ms-5">
 						<div class="p-5">
 							<div class="card" style="width: 17rem;">
-								<img src="https://images.squarespace-cdn.com/content/v1/5efc4234201cfd62a7cb08b7/1620727341643-1F101ZDKRBS66DLFDUCM/SCP_Boom_Bap_Rap_AW-01.jpg" class="card-img-top" alt="...">
+								<img src="https://www.thenurseryhrpeople.co.uk/wp-content/uploads/2016/11/Fun-In-The-Workplace.jpg" alt="fun">
 								<div class="card-body">
 									<h5 class="card-title">{{ article.title }}</h5>
 									<p class="card-text">{{ article.description }}</p>
+									{% for tag in article.tags %}
+										<p class="card-text btn btn-warning">{{ tag }}</p>
+									{% endfor %}
 									<p class="card-text">{{ article.created|date("d/m/Y H:i:s") }}</p>
 									<a href="{{ path('article_details', { id : article.id }) }}" class="btn btn-primary">Détails</a>
 								</div>
@@ -41,6 +53,6 @@
 	</main>
 
 	<footer>
-		<div class=""></div>
+		<div class="text-center"><h4>Pour un coaching veuillez contacter le 0666666666</h4></div>
 	</footer>   
 {% endblock %}
