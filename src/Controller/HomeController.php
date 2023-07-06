@@ -17,17 +17,18 @@ class HomeController extends AbstractController
     public function homeAction(EntityManagerInterface $em, Request $request): Response
     {
         $articles = $em->getRepository(Article::class)->findBy([], ['title' => 'DESC']);
-        $tags = $em->getRepository(Tag::class)->findAll();
-        $form = $this->createForm(HomeType::class, $tags);
+//        $tags = $em->getRepository(Tag::class)->findAll();
+        $form = $this->createForm(HomeType::class, null);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && isset($tags)) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $tag = $form->getData();
-            $articles = $em->getRepository(Article::class)->findBy(['tag' => $tag]);
 
-            $tags = $form->getData();
-            $tags = $em->getRepository(Tag::class)->findBy(['articles' => $articles]);
+            $articles = $em->getRepository(Article::class)->getByTags($tag);
+
+
+//            $tags = $em->getRepository(Tag::class)->findBy(['articles' => $articles]);
 
         }
 
@@ -37,7 +38,7 @@ class HomeController extends AbstractController
 
         return $this->render('home.html.twig', [
             'articles' => $articles,
-            'tags' => $tags,
+//            'tags' => $tags,
             'form' => $form,
         ]);
     }

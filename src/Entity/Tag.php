@@ -16,7 +16,7 @@ class Tag
     private int $id;
 
     #[ORM\Column(length: 255)]
-    private ?string $content = null;
+    private string $content;
 
     #[ORM\ManyToMany(targetEntity: Article::class, mappedBy: 'tag_id')]
     private Collection $articles;
@@ -45,8 +45,7 @@ class Tag
     }
     public function __toString()
     {
-        return strval($this->content);
-//        return $this->content;
+        return $this->content;
     }
 
     /**
