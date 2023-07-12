@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 
 class ArticleRepository extends EntityRepository
 {
-    public function getByTags($tag): array
+    public function getByTags($tags): array
     {
 //        $entityManager = $this->getEntityManager();
 //
@@ -19,6 +19,12 @@ class ArticleRepository extends EntityRepository
 //        )->setParameter('tag', $tag);
 //
 //        return $query->getResult();
+        $ids = [];
+
+        foreach ($tags as $tag){
+            $ids[] = $tag->getId();
+
+        } dd($ids);
 
         return $this->createQueryBuilder('a')
             ->join('a.tags', 't')

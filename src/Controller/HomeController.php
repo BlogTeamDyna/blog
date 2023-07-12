@@ -19,17 +19,16 @@ class HomeController extends AbstractController
 
         $articles = $em->getRepository(Article::class)->findBy([], ['title' => 'DESC']);
 
-        $form = $this->createForm(HomeType::class, null);
+        $form = $this->createForm(HomeType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
 
-            $tag = $form->getData();
+            $tags = $form->getData();
 
-
-            if($tag['tags'] !== null) {
-                $articles = $em->getRepository(Article::class)->getByTags($tag['tags']);
+            if($tags['tags'] !== null) {
+                $articles = $em->getRepository(Article::class)->getByTags($tags['tags']);
             }
 
         }

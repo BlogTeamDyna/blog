@@ -16,11 +16,11 @@ class HomeType extends AbstractType
     {
         $builder
             ->add('tags', EntityType::class, [
-                'class' => Tag::class,
-                'required' => false,
-                'choice_label' => 'content',
-                'multiple' => false,
-                'expanded' => false
+                'class'         => Tag::class,
+                'required'      => false,
+                'choice_label'  => 'content',
+                'multiple'      => true,
+                'expanded'      => true
             ])
             ->add('save', SubmitType::class, [
                 'label' => "Filtrer"
