@@ -6,7 +6,9 @@ use App\Entity\Article;
 use App\Entity\Commentary;
 use App\Form\ArticleType;
 use App\Form\CommentaryType;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,6 +97,5 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('homepage');
     }
-
 
 }

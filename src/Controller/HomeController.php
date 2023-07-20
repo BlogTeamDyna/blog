@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Tag;
 use App\Entity\Article;
 use App\Form\HomeType;
+use App\Form\PaginationType;
+use App\Repository\ArticleRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +17,11 @@ use Doctrine\ORM\EntityManagerInterface;
 class HomeController extends AbstractController
 {
     #[Route('/', name: "homepage")]
-    public function homeAction(EntityManagerInterface $em, Request $request): Response
+    public function homeAction(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator
+    ): Response
     {
-
-        $articles = $em->getRepository(Article::class)->findBy([], ['title' => 'DESC']);
+        $articles = $em->getRepository(Article::class)->getAll();
+        $page = $request->query->get('page', 1);
 
         $form = $this->createForm(HomeType::class);
 
@@ -25,21 +29,36 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() ) {
 
+            $page = 1;
+
             $tags = $form->getData();
 
-            if($tags['tags'] !== null) {
+            if(!$tags['tags']->isEmpty()) {
                 $articles = $em->getRepository(Article::class)->getByTags($tags['tags']);
             }
-
         }
 
-        // creation d'un nouveau formulaire de filtre tags
-        // a la selection d'un tag (form is submited ...) je filter les article par tags
-        // la variable articles (deja existante contiendra les uniquement les articles qui auront le tags en question)
+        $pagination = $paginator->paginate(
+            $articles,$page,3
+        );
+
+        $forme = $this->createForm(PaginationType::class);
+        dump($forme);
 
         return $this->render('home.html.twig', [
             'articles' => $articles,
             'form' => $form,
+            'forme' => $forme,
+            'pagination' => $pagination
+        ]);
+    }
+
+    public function getPersonalizedPagination(Request $request, ): Response
+    {
+        $forme = $this->createForm(PaginationType::class);
+
+        return $this->render('home.html.twig', [
+            'forme' => $forme,
         ]);
     }
     public function getTags(EntityManagerInterface $em): Response
@@ -50,7 +69,4 @@ class HomeController extends AbstractController
             'tags' => $tags
         ]);
     }
-
-
-
 }

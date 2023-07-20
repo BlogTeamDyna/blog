@@ -25,12 +25,8 @@
 					{{ form_start(form,{attr: {class: 'filter'}}) }}
 					<p>{{ form_row(form.tags) }}</p>
 					{{ form_end(form) }}
-{#				{% endfor %}#}
-{#				{{ form_start(form) }} #}
-{#				<p>{{ form_row(form.tags) }}</p>#}
-{#				{{ form_end(form) }}#}
 
-				{% for article in articles %}
+				{% for article in pagination %}
 					<div class="col ms-5">
 						<div class="p-5">
 							<div class="card" style="width: 17rem;">
@@ -48,6 +44,10 @@
 						</div>
 					</div>
 				{% endfor %}
+				{{ knp_pagination_render(pagination) }}
+				{{ form_start(forme) }}
+				{{ form_row(forme) }}
+				{{ form_end(forme) }}
 			</div>
 		</div>
 	</main>

@@ -3,36 +3,31 @@
 namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
-class ArticleRepository extends EntityRepository
+class  ArticleRepository extends EntityRepository
 {
-    public function getByTags($tags): array
+    public function getByTags($tags): Query
     {
-//        $entityManager = $this->getEntityManager();
-//
-//        $query = $entityManager->createQuery(
-//            'SELECT *
-//                FROM App\Entity\Article p
-//                JOIN p.article_tag a
-//                WHERE a.tag = :tag
-//                '
-//        )->setParameter('tag', $tag);
-//
-//        return $query->getResult();
         $ids = [];
 
-        foreach ($tags as $tag){
+        foreach ($tags as $tag) {
             $ids[] = $tag->getId();
-
-        } dd($ids);
+        }
 
         return $this->createQueryBuilder('a')
             ->join('a.tags', 't')
-            ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->getId())
-            ->getQuery()
-            ->getResult()
-        ;
-
+            ->where('t.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery();
     }
+
+    public function getAll(): Query
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'ASC')
+            ->getQuery();
+    }
+
 }
