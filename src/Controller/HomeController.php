@@ -6,7 +6,6 @@ use App\Entity\Tag;
 use App\Entity\Article;
 use App\Form\HomeType;
 use App\Form\PaginationType;
-use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,23 +26,43 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() ) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $page = 1;
 
             $tags = $form->getData();
 
+//            dd($tags);
             if(!$tags['tags']->isEmpty()) {
                 $articles = $em->getRepository(Article::class)->getByTags($tags['tags']);
             }
         }
 
-        $pagination = $paginator->paginate(
-            $articles,$page,3
-        );
 
         $forme = $this->createForm(PaginationType::class);
-        dump($forme);
+//        $forme->handleRequest($request);
+
+        $numberPerPage = $request->query->get("numPerPage",3);
+
+        $pagination = $paginator->paginate(
+            $articles,$page,$numberPerPage
+        );
+
+
+        if ($forme->isSubmitted() && $forme->isValid()) {
+
+            $perPage = $numberPerPage;
+
+            $forme->getData();
+
+            if ($forme['tri'] === '6') {
+                $perPage = 6;
+            } else if ($forme['tri'] === '9') {
+                $perPage = 9;
+            }
+
+        }
+
 
         return $this->render('home.html.twig', [
             'articles' => $articles,
@@ -53,14 +72,14 @@ class HomeController extends AbstractController
         ]);
     }
 
-    public function getPersonalizedPagination(Request $request, ): Response
-    {
-        $forme = $this->createForm(PaginationType::class);
-
-        return $this->render('home.html.twig', [
-            'forme' => $forme,
-        ]);
-    }
+//    public function getPersonalizedPagination(Request $request, ): Response
+//    {
+//        $forme = $this->createForm(PaginationType::class);
+//
+//        return $this->render('home.html.twig', [
+//            'forme' => $forme,
+//        ]);
+//    }
     public function getTags(EntityManagerInterface $em): Response
     {
         $tags = $em->getRepository(Tag::class)->findAll();

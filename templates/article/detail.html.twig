@@ -19,10 +19,6 @@
 
 	</div>
 
-	<div>
-
-	</div>
-
 	<div class="container">
 		{{ form_start(form) }}
 		<p>{{ form_row(form.comment) }}</p>
@@ -41,12 +37,12 @@
 
 	<script>
 		function deleteAlert() {
-if (confirm("Etes-vous sûr de supprimer cet article ?") === true) {
-return true;
-} else {
-event.stopPropagation();
-event.preventDefault();
-}
-}
+			if (confirm("Etes-vous sûr de supprimer cet article ?") === true) {
+				return true;
+			} else {
+			event.stopPropagation();
+			event.preventDefault();
+			}
+	}
 	</script>
 {% endblock %}

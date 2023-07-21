@@ -15,6 +15,7 @@ class HomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+//            ->setMethod('GET')
             ->add('tags', EntityType::class, [
                 'class'         => Tag::class,
                 'required'      => false,
