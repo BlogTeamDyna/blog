@@ -24,19 +24,17 @@ class HomeController extends AbstractController
 
         $form = $this->createForm(HomeType::class);
 
-        $form->handleRequest($request);
+        $tags = $request->query->get('selectedTags');
 
-        if ($form->isSubmitted() && $form->isValid()) {
+//            $page = 1;
 
-            $page = 1;
-
-            $tags = $form->getData();
+//            $tags = $form->getData();
 
 //            dd($tags);
-            if(!$tags['tags']->isEmpty()) {
-                $articles = $em->getRepository(Article::class)->getByTags($tags['tags']);
+            if( $tags !== null) {
+                $tags = explode(',', $tags);
+                $articles = $em->getRepository(Article::class)->getByTags($tags);
             }
-        }
 
 
         $forme = $this->createForm(PaginationType::class);

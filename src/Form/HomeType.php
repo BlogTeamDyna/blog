@@ -22,10 +22,8 @@ class HomeType extends AbstractType
                 'choice_label'  => 'content',
                 'multiple'      => true,
                 'expanded'      => true
-            ])
-            ->add('save', SubmitType::class, [
-                'label' => "Filtrer"
             ]);
+
 
     }
 //Tag::class

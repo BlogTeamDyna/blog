@@ -10,16 +10,11 @@ class  ArticleRepository extends EntityRepository
 {
     public function getByTags($tags): Query
     {
-        $ids = [];
-
-        foreach ($tags as $tag) {
-            $ids[] = $tag->getId();
-        }
 
         return $this->createQueryBuilder('a')
             ->join('a.tags', 't')
             ->where('t.id IN (:ids)')
-            ->setParameter('ids', $ids)
+            ->setParameter('ids', $tags)
             ->getQuery();
     }
 

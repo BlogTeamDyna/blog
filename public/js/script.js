@@ -18,19 +18,30 @@ let params = new URLSearchParams(url.search);
 function myOnChange()  {
     let x  = document.getElementById("pagination_tri");
     let value = x.value;
+    console.log(value)
     params.set("numPerPage", value)
     params.toString();
     window.location.href = url + "?" + params;
     console.log(url);
 }
 
-document.getElementById("tagFiltring").onchange = function() {onTagSubmit()};
+// document.querySelectorAll("home_tags").onchange = function() {onTagSubmit()};
+
+ document.querySelectorAll('input[id^="home_tags_"]').forEach(item => {
+     item.addEventListener('change', event => {
+         onTagSubmit()
+     })
+ });
+
 function onTagSubmit() {
-    let x = document.getElementById("home_save");
-    let value = x.values;
-    console.log(value);
-    // params.set("selectedTag", value)
-    // params.toString();
-    // window.location.href = url + "?" + params;
-    // console.log(url);
+    var array = []
+    var checkboxes = document.querySelectorAll('input[id^="home_tags_"]:checked')
+
+    for (var i = 0; i < checkboxes.length; i++) {
+        array.push(checkboxes[i].value)
+    }
+    params.set("selectedTags", array.toString())
+    params.toString();
+    window.location.href = url + "?" + params;
+    console.log(url);
 }
