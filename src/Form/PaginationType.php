@@ -21,6 +21,7 @@ class PaginationType extends AbstractType
         $builder
             ->setMethod('GET')
             ->add('tri', ChoiceType::class, [
+                'data' => $options['numberPerPage'],
                 'choices' => [
                     '3' => 3,
                     '6' => 6,
@@ -34,6 +35,7 @@ class PaginationType extends AbstractType
     {
         $resolver->setDefaults([
                                    'data_class' => null ,
+                                   'numberPerPage' => null
                                ]);
     }
 }

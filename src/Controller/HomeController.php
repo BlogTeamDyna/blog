@@ -20,27 +20,43 @@ class HomeController extends AbstractController
     ): Response
     {
         $articles = $em->getRepository(Article::class)->getAll();
-        $page = $request->query->get('page', 1);
 
-        $form = $this->createForm(HomeType::class);
+        $page = $request->query->get('page', 1);
 
         $tags = $request->query->get('selectedTags');
 
-//            $page = 1;
+        dump($tags);
 
-//            $tags = $form->getData();
+        if( $tags !== null && $tags !== "" ) {
 
-//            dd($tags);
-            if( $tags !== null) {
-                $tags = explode(',', $tags);
-                $articles = $em->getRepository(Article::class)->getByTags($tags);
-            }
+            $tags = explode(',', $tags);
+            $articles = $em->getRepository(Article::class)->getByTags($tags);
 
+        } else {
+            $tags = [];
+        }
+        // envoyer url courante avec tout les parametres
 
-        $forme = $this->createForm(PaginationType::class);
-//        $forme->handleRequest($request);
+        // Pour chaque tag receptionné, recupérer son objet et hydrater arrayTagsObject
+        $arrayTagsObject = [];
+
+        foreach ($tags as $tag) {
+            $arrayTagsObject[] = $em->getRepository(Tag::class)->find($tag);
+
+        };
+
+        $form = $this->createForm(HomeType::class,null,['selectedTags' => $arrayTagsObject]);
+
+//
+//            if( $tags !== null ) {
+//                $tags = explode(',', $tags);
+//
+//            }
 
         $numberPerPage = $request->query->get("numPerPage",3);
+
+        $forme = $this->createForm(PaginationType::class, null,['numberPerPage' => $numberPerPage]);
+
 
         $pagination = $paginator->paginate(
             $articles,$page,$numberPerPage

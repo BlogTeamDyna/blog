@@ -18,11 +18,13 @@ class HomeType extends AbstractType
 //            ->setMethod('GET')
             ->add('tags', EntityType::class, [
                 'class'         => Tag::class,
+                'data' => $options['selectedTags'],
                 'required'      => false,
                 'choice_label'  => 'content',
                 'multiple'      => true,
                 'expanded'      => true
             ]);
+
 
 
     }
@@ -31,6 +33,7 @@ class HomeType extends AbstractType
     {
         $resolver->setDefaults([
                                    'data_class' => null ,
+                                   'selectedTags' => null,
                                ]);
     }
 }

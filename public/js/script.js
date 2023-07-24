@@ -1,15 +1,8 @@
-
-
-let a = 2
-let b = 8
-
-let c = a + b
-
-console.log(c)
-
 // Récuperation de l'id de la selection du nombre d'articles par page
 // Au changement de la valeur refresh le block des articles
 
+
+// envoyer l'url courante avec tout les parametres
 document.getElementById("pagination_tri").onchange = function()  {myOnChange()};
 
 let url = new URL('http://blog.fr.lan/');
@@ -40,6 +33,7 @@ function onTagSubmit() {
     for (var i = 0; i < checkboxes.length; i++) {
         array.push(checkboxes[i].value)
     }
+
     params.set("selectedTags", array.toString())
     params.toString();
     window.location.href = url + "?" + params;
