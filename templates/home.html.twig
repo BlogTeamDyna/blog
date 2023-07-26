@@ -13,9 +13,15 @@
 	</blockquote>
 	<main>
 
-		<div class="d-flex justify-content-center">
+		<div class="d-flex justify-content-center" style="margin: 1em;">
+			<button class="btn btn-primary">
+				<a href="{{path('app_login')}}" style="text-decoration:none;color: white">Connexion</a>
+			</button>
 			<button class="btn btn-primary">
 				<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Créer article</a>
+			</button>
+			<button class="btn btn-primary">
+				<a href="{{path('inscription')}}" style="text-decoration:none;color: white;">I N S C R I P T I O N</a>
 			</button>
 		</div>
 
@@ -32,7 +38,7 @@
 					<div class="col ms-5">
 						<div class="p-5">
 							<div class="card" style="width: 17rem;">
-								<img src="https://i0.wp.com/www.frenchweb.fr/wp-content/uploads/2019/04/shutterstock_1019230627-1.jpg?fit=650%2C405&ssl=1" alt="fun">
+								<img src="https://gifdb.com/images/high/shrek-meme-screaming-donkey-scared-shower-cap-o0eurbrdua67nj24.gif" alt="fun">
 								<div class="card-body">
 									<h5 class="card-title">{{ article.title }}</h5>
 									<p class="card-text">{{ article.description }}</p>
@@ -48,7 +54,9 @@
 				{% endfor %}
 
 				<div class="d-flex justify-content-center">
+
 				{{ knp_pagination_render(pagination) }}
+
 				</div>
 
 				<div class="d-flex justify-content-center">

@@ -5,20 +5,17 @@
 // envoyer l'url courante avec tout les parametres
 document.getElementById("pagination_tri").onchange = function()  {myOnChange()};
 
-let url = new URL('http://blog.fr.lan/');
-let params = new URLSearchParams(url.search);
+let currentUrl = new URL(window.location.href);
+let params = new URLSearchParams(currentUrl.search);
+let url = window.location.origin
 
 function myOnChange()  {
     let x  = document.getElementById("pagination_tri");
     let value = x.value;
-    console.log(value)
     params.set("numPerPage", value)
     params.toString();
     window.location.href = url + "?" + params;
-    console.log(url);
 }
-
-// document.querySelectorAll("home_tags").onchange = function() {onTagSubmit()};
 
  document.querySelectorAll('input[id^="home_tags_"]').forEach(item => {
      item.addEventListener('change', event => {
@@ -33,9 +30,7 @@ function onTagSubmit() {
     for (var i = 0; i < checkboxes.length; i++) {
         array.push(checkboxes[i].value)
     }
-
     params.set("selectedTags", array.toString())
     params.toString();
     window.location.href = url + "?" + params;
-    console.log(url);
 }

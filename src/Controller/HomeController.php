@@ -25,7 +25,7 @@ class HomeController extends AbstractController
 
         $tags = $request->query->get('selectedTags');
 
-        dump($tags);
+//        dump($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 
         if( $tags !== null && $tags !== "" ) {
 
@@ -35,6 +35,7 @@ class HomeController extends AbstractController
         } else {
             $tags = [];
         }
+
         // envoyer url courante avec tout les parametres
 
         // Pour chaque tag receptionné, recupérer son objet et hydrater arrayTagsObject
@@ -42,18 +43,12 @@ class HomeController extends AbstractController
 
         foreach ($tags as $tag) {
             $arrayTagsObject[] = $em->getRepository(Tag::class)->find($tag);
-
         };
 
         $form = $this->createForm(HomeType::class,null,['selectedTags' => $arrayTagsObject]);
 
-//
-//            if( $tags !== null ) {
-//                $tags = explode(',', $tags);
-//
-//            }
 
-        $numberPerPage = $request->query->get("numPerPage",3);
+        $numberPerPage = $request->query->get("numPerPage", 3);
 
         $forme = $this->createForm(PaginationType::class, null,['numberPerPage' => $numberPerPage]);
 
