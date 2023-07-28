@@ -8,7 +8,6 @@ use App\Form\ArticleType;
 use App\Form\CommentaryType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +22,10 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
+
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -45,12 +48,10 @@ class ArticleController extends AbstractController
         $commentary->setArticle($article);
         $commentary->setUser($user);
 
+        $form = $this->createForm(CommentaryType::class, $commentary);
+        $form->handleRequest($request);
 
         $commentaries = $em->getRepository(Commentary::class)->findBy(['article' => $article] , ["created" => "DESC"]);
-
-        $form = $this->createForm(CommentaryType::class, $commentary);
-
-        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($commentary);

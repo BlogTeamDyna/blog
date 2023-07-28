@@ -25,7 +25,6 @@ class HomeController extends AbstractController
 
         $tags = $request->query->get('selectedTags');
 
-//        dump($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 
         if( $tags !== null && $tags !== "" ) {
 
@@ -37,8 +36,8 @@ class HomeController extends AbstractController
         }
 
         // envoyer url courante avec tout les parametres
-
         // Pour chaque tag receptionné, recupérer son objet et hydrater arrayTagsObject
+
         $arrayTagsObject = [];
 
         foreach ($tags as $tag) {

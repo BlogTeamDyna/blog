@@ -8,7 +8,9 @@
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+
     <h3 class="text-center">Bienvenu sur l'espace connexion</h3>
+
     <div class="text-center">
     <form action="{{ path('app_login') }}" method="post">
         <label for="username">Email:</label>
