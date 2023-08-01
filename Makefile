@@ -47,6 +47,10 @@ make-migration: ## Create migration from diff
 exec-migration: ## Execute migration in php container
 	$(DOCKER_COMPOSE) exec $(DOCKER_PHP) php bin/console doctrine:migrations:migrate
 
+.PHONY: exec-migration-diff
+exec-migration-diff: ## Execute migration in php container
+	$(DOCKER_COMPOSE) exec $(DOCKER_PHP) php bin/console doctrine:migrations:diff
+
 .PHONY: prev-migration
 prev-migration: ## Rollback previous migration in php container
 	$(DOCKER_COMPOSE) exec $(DOCKER_PHP) php bin/console doctrine:migrations:migrate prev

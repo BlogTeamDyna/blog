@@ -33,16 +33,15 @@ class Article
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Commentary::class, orphanRemoval: true)]
     private Collection $commentaries;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'articles')]
-    private Collection $tag_id;
-
     #[ORM\ManyToMany(targetEntity: Tag::class)]
     private Collection $tags;
+
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    private ?User $user = null;
 
     public function __construct()
     {
         $this->commentaries = new ArrayCollection();
-        $this->tag_id = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
 
@@ -121,29 +120,6 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection<int, Tag>
-     */
-    public function getTagId(): Collection
-    {
-        return $this->tag_id;
-    }
-
-    public function addTagId(Tag $tagId): self
-    {
-        if (!$this->tag_id->contains($tagId)) {
-            $this->tag_id->add($tagId);
-        }
-
-        return $this;
-    }
-
-    public function removeTagId(Tag $tagId): self
-    {
-        $this->tag_id->removeElement($tagId);
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Tag>
@@ -165,6 +141,18 @@ class Article
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
