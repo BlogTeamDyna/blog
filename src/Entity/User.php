@@ -37,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentary::class)]
     private Collection $commentaries;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Article::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Article::class, cascade:['persist'] )]
     private Collection $articles;
 
     public function __construct()

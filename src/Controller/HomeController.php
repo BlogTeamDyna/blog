@@ -56,7 +56,6 @@ class HomeController extends AbstractController
             $articles,$page,$numberPerPage
         );
 
-
         if ($forme->isSubmitted() && $forme->isValid()) {
 
             $perPage = $numberPerPage;
@@ -70,7 +69,6 @@ class HomeController extends AbstractController
             }
 
         }
-
 
         return $this->render('home.html.twig', [
             'articles' => $articles,

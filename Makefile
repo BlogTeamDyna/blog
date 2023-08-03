@@ -91,3 +91,7 @@ ssh-develop: ## Open an ssh connection in develop environment
 .PHONY: ssh-release
 ssh-release: ## Open an ssh connection in release environment
 	symfony cloud:ssh -p shdr3bih7uelg -e release -A dynabuy
+
+.PHONY: unit-test
+unit-test: ## Open an ssh connection in release environment
+	$(DOCKER_COMPOSE) exec $(DOCKER_PHP) php bin/phpunit

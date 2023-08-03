@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Commentary;
+use App\Entity\User;
 use App\Form\ArticleType;
 use App\Form\CommentaryType;
 use App\Repository\ArticleRepository;
@@ -16,16 +17,21 @@ use Symfony\Component\HttpFoundation\Response;
 class ArticleController extends AbstractController
 {
     #[Route("/article/new", name: "article_create")]
-    public function createAction(Request $request, EntityManagerInterface $em, Article $article = null): Response
+    public function createAction(Request $request, EntityManagerInterface $em, Article $article = null, ): Response
     {
+        $user = $this->getUser();
+//        $user = $em->getRepository(User::class)->find($id[]
+//        );
+        dump($user);
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
-
         $form->handleRequest($request);
 
 
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
+        $article->setUser($user);
+        $user->addArticle($article);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
