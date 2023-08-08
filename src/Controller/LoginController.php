@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,18 +11,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    public function index(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        dump($_SESSION);
-
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
         ]);
     }
+
+    #[Route('/login_success', name: 'app_login_success')]
+    public function indexSuccess(): Response
+    {
+        $user = $this->getUser();
+
+        if(in_array('ROLE_ADMIN',$user->getRoles())) {
+            return $this->redirectToRoute('adminpage');
+        };
+
+        return $this->redirectToRoute('homepage');
+    }
+
 }

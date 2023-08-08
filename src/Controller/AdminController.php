@@ -15,15 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController {
 
     #[Route("/admin", name: "adminpage")]
-
-    public function index(Request $request, EntityManagerInterface $em ): Response
+    public function index(EntityManagerInterface $em): Response
     {
 
         $user = $this->getUser();
         $articles = $em->getRepository(Article::class)->findAll();
+        $commentary = $em->getRepository(Commentary::class)->findAll();
 
         return $this->render('admin/admin.html.twig', [
             'articles' => $articles,
+            'commentary' => $commentary,
             'user'   => $user,
             'id' => $user->getId(),
         ]);

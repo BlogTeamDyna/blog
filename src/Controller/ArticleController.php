@@ -19,16 +19,13 @@ class ArticleController extends AbstractController
     #[Route("/article/new", name: "article_create")]
     public function createAction(Request $request, EntityManagerInterface $em, Article $article = null, ): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+
         $user = $this->getUser();
-//        $user = $em->getRepository(User::class)->find($id[]
-//        );
-        dump($user);
+
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
-
-
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
         $article->setUser($user);
         $user->addArticle($article);
@@ -54,10 +51,10 @@ class ArticleController extends AbstractController
         $commentary->setArticle($article);
         $commentary->setUser($user);
 
+        $commentaries = $em->getRepository(Commentary::class)->findBy(['article' => $article] , ["created" => "DESC"]);
+
         $form = $this->createForm(CommentaryType::class, $commentary);
         $form->handleRequest($request);
-
-        $commentaries = $em->getRepository(Commentary::class)->findBy(['article' => $article] , ["created" => "DESC"]);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($commentary);
@@ -79,6 +76,8 @@ class ArticleController extends AbstractController
     #[Route("/article/edit/{id}", name: "article_edit")]
     public function editAction(EntityManagerInterface $em, Request $request, Article $article): Response
     {
+
+        $this->denyAccessUnlessGranted('edit', $article);
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
@@ -87,7 +86,6 @@ class ArticleController extends AbstractController
 
             $em->persist($article);
             $em->flush();
-
             return $this->redirectToRoute('homepage');
         }
 
@@ -99,9 +97,9 @@ class ArticleController extends AbstractController
     #[Route("/article/delete/{id}", name: "article_delete")]
     public function deleteAction(EntityManagerInterface $em, Article $article): Response
     {
+        $this->denyAccessUnlessGranted('delete', $article);
         $em->remove($article);
         $em->flush();
-
         return $this->redirectToRoute('homepage');
     }
 
