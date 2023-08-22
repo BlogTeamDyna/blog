@@ -15,7 +15,6 @@ class HomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->setMethod('GET')
             ->add('tags', EntityType::class, [
                 'class'         => Tag::class,
                 'data' => $options['selectedTags'],
@@ -28,7 +27,7 @@ class HomeType extends AbstractType
 
 
     }
-//Tag::class
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

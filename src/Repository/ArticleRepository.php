@@ -25,4 +25,13 @@ class  ArticleRepository extends EntityRepository
             ->getQuery();
     }
 
+    public function searchByTitleAndDescription($searchData): Query
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.title LIKE :search')
+            ->orWhere('a.description LIKE :search')
+            ->setParameter('search', '%'.$searchData.'%')
+            ->getQuery();
+    }
+
 }

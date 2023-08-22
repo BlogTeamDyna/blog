@@ -14,16 +14,13 @@
 	<main>
 		<div class="d-flex justify-content-center">
 			{% if is_granted('IS_AUTHENTICATED') is same as( false ) %}
-
-			<button class="btn btn-info text-center">
-			<a href="{{path('inscription')}}" style="text-decoration:none;color: white;">I N S C R I P T I O N</a>
-			</button>
+				<button class="btn btn-info text-center">
+				<a href="{{path('inscription')}}" style="text-decoration:none;color: white;">I N S C R I P T I O N</a>
+				</button>
 			{% endif %}
-
 		</div>
 
 		<div class="d-flex justify-content-center" style="margin: 1em;">
-
 			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
 				<button class="btn btn-primary">
@@ -41,20 +38,15 @@
 
 			{% endif %}
 
-{#			<button class="btn btn-primary">#}
-{#				<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Créer article</a>#}
-{#			</button>#}
-{#			<button>#}
-{#				<a href="{{ path('app_logout') }}" style="text-decoration:none;color: white">Deconnexion</a>#}
-{#			</button>#}
-{#			<button class="btn btn-primary">#}
-{#				<a href="{{path('inscription')}}" style="text-decoration:none;color: white;">I N S C R I P T I O N</a>#}
-{#			</button>#}
 		</div>
-
-		<div id="calli" class="container px-4 bg-success-subtle border border-success-subtle rounded-5">
+		<div class="d-flex justify-content-center">
+		{{ form_start(searchForm) }}
+					{{ form_row(searchForm.search) }}
+{#					{{ form_row(searchForm.save) }}#}
+		{{ form_end(searchForm) }}
+		</div>
+			<div id="calli" class="container px-4 bg-success-subtle border border-success-subtle rounded-5">
 			<div class="row gx-2">
-{#				{% for tag in article.tags %}#}
 				<div id="tag_filtre">
 					{{ form_start(form,{attr: {class: 'filter',id: 'tagFiltring'}}) }}
 					{{ form_row(form.tags) }}
@@ -81,9 +73,7 @@
 				{% endfor %}
 
 				<div class="d-flex justify-content-center">
-
 				{{ knp_pagination_render(pagination) }}
-
 				</div>
 
 				<div class="d-flex justify-content-center">
@@ -91,11 +81,8 @@
 						{{ form_row(forme) }}
 						{{ form_end(forme) }}
 				</div>
-
 			</div>
-
 		</div>
-
 	</main>
 
 	<footer>

@@ -12,16 +12,16 @@
 	<p class="container text-center border border-success-subtle rounded-5">Dernière modification le
 		{{ article.updated|date("d/m/Y H:i:s") }}</p>
 
-
-	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	{% set role = article.getUser() %}
+	{% if app.user is same as(role) or is_granted('ROLE_ADMIN')%}
 	<div class="d-flex justify-content-center">
 		<a class="btn btn-primary" href="{{path('article_edit', { id : article.id }) }}">Modifier</a>
 		<a class="btn btn-primary" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">Supprimer</a>
 	</div>
 	{% endif %}
 
-
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
 			<div class="container" id="divCommentary">
 				{{ form_start(form) }}
 				<p>{{ form_row(form.comment) }}</p>
@@ -37,22 +37,12 @@
 	{% else %}
 	{% endif %}
 
-{#	<div class="container" id="divCommentary">#}
-{#		{{ form_start(form) }}#}
-{#		<p>{{ form_row(form.comment) }}</p>#}
-{#		<div class="d-flex justify-content-center">#}
-{#			<p class="text-center button">{{ form_row(form.save) }}</p>#}
-{#		</div>#}
-{#		{{ form_end(form) }}#}
-{#	</div>#}
-
 	<div class="container">
 		{% for commentary in commentaries %}
 		<p class="card-text">{{ commentary.comment }}</p>
 		<p class="card-text">{{ commentary.created|date("d/m/Y H:i:s") }}</p>
 		{% endfor %}
 	</div>
-
 
 	<script>
 		function deleteAlert() {

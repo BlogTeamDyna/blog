@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -38,6 +39,9 @@ class Article
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?User $user = null;
+
+   #[ORM\Column(type: Types::STRING)]
+    public string $image;
 
     public function __construct()
     {
@@ -155,5 +159,17 @@ class Article
         $this->user = $user;
 
         return $this;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
     }
 }

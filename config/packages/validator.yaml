@@ -7,6 +7,15 @@ framework:
         #auto_mapping:
         #    App\Entity\: []
 
+#App\Entity\Author:
+#      properties:
+#          image:
+#              - Image:
+#                    minWidth: 200
+#                    maxWidth: 500
+#                    minHeight: 200
+#                    maxHeight: 500
+
 when@test:
     framework:
         validation:

@@ -34,3 +34,22 @@ function onTagSubmit() {
     params.toString();
     window.location.href = url + "?" + params;
 }
+
+// A la soumission du formulaire recuperer la valeur de la recherche (input) - js
+// Envoyer les données au home controller (voir exemple ci-dessus) - js
+// Recuperer les valeurs depuis la requete - php
+// Setter les valeur au model Data SearchData - php
+// Filtrer les articles depuis le Repo Article en passant l'objet model SearchData - php
+
+document.getElementById("search_search").onchange = function()  {myOnSearch()};
+let input = document.querySelector('input[id^="search_search"]');
+console.log(input)
+
+function myOnSearch() {
+    let x = document.getElementById("search_search");
+    let value = x.value;
+    console.log(value)
+    params.set("recherche", value)
+    window.location.href = url + "?" + params;
+}
+

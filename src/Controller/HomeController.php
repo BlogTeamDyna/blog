@@ -6,6 +6,8 @@ use App\Entity\Tag;
 use App\Entity\Article;
 use App\Form\HomeType;
 use App\Form\PaginationType;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +27,6 @@ class HomeController extends AbstractController
 
         $tags = $request->query->get('selectedTags');
 
-
         if( $tags !== null && $tags !== "" ) {
 
             $tags = explode(',', $tags);
@@ -35,57 +36,41 @@ class HomeController extends AbstractController
             $tags = [];
         }
 
-        // envoyer url courante avec tout les parametres
-        // Pour chaque tag receptionné, recupérer son objet et hydrater arrayTagsObject
-
         $arrayTagsObject = [];
 
         foreach ($tags as $tag) {
             $arrayTagsObject[] = $em->getRepository(Tag::class)->find($tag);
-        };
+        }
 
-        $form = $this->createForm(HomeType::class,null,['selectedTags' => $arrayTagsObject]);
-
-
+        $tagForm = $this->createForm(HomeType::class,null,['selectedTags' => $arrayTagsObject]);
         $numberPerPage = $request->query->get("numPerPage", 3);
 
-        $forme = $this->createForm(PaginationType::class, null,['numberPerPage' => $numberPerPage]);
+        $paginationForm = $this->createForm(PaginationType::class, null,['numberPerPage' => $numberPerPage]);
+
+        $searchData = new SearchData();
+        $searchData->setSearch($request->query->get("recherche", ""));
+        dump($searchData);
+
+        $searchForm = $this->createForm(SearchType::class, $searchData);
+
+        if($searchData != "") {
+            $articles = $em->getRepository(Article::class)->searchByTitleAndDescription($searchData);
+        }
 
 
         $pagination = $paginator->paginate(
             $articles,$page,$numberPerPage
         );
 
-        if ($forme->isSubmitted() && $forme->isValid()) {
-
-            $perPage = $numberPerPage;
-
-            $forme->getData();
-
-            if ($forme['tri'] === '6') {
-                $perPage = 6;
-            } else if ($forme['tri'] === '9') {
-                $perPage = 9;
-            }
-
-        }
-
         return $this->render('home.html.twig', [
             'articles' => $articles,
-            'form' => $form,
-            'forme' => $forme,
+            'form' => $tagForm,
+            'forme' => $paginationForm,
+            'searchForm' => $searchForm,
             'pagination' => $pagination
         ]);
     }
 
-//    public function getPersonalizedPagination(Request $request, ): Response
-//    {
-//        $forme = $this->createForm(PaginationType::class);
-//
-//        return $this->render('home.html.twig', [
-//            'forme' => $forme,
-//        ]);
-//    }
     public function getTags(EntityManagerInterface $em): Response
     {
         $tags = $em->getRepository(Tag::class)->findAll();

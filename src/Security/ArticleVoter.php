@@ -12,32 +12,28 @@ class ArticleVoter extends Voter
 // these strings are just invented: you can use anything
 const DELETE = 'delete';
 const EDIT = 'edit';
-    private $security;
+private $security;
 public function __construct(Security $security)
 {
     $this->security = $security;
 }
-
 protected function supports(string $attribute, mixed $subject): bool
 {
     // if the attribute isn't one we support, return false
     if (!in_array($attribute, [self::DELETE, self::EDIT])) {
         return false;
     }
-
     // only vote on `Article` objects
     if (!$subject instanceof Article) {
         return false;
     }
     return true;
 }
-
 protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
 {
     // on récupere l'utilisateur à partir du token
     $user = $token->getUser();
 
-//dd($subject);
     if (!$user instanceof User) {
     // the user must be logged in; if not, deny access
         return false;
@@ -60,19 +56,15 @@ protected function voteOnAttribute(string $attribute, mixed $subject, TokenInter
     default => throw new \LogicException('This code should not be reached!')
 };
 }
-
 private function canDelete(): bool
 {
     return $this->security->isGranted('ROLE_ADMIN');
-
 }
-
 private function canEdit(Article $article, User $user): bool
 {
     if($this->security->isGranted('ROLE_ADMIN') ||  $user === $article->getUser()) {
         return true;
-    };
+    }
     return false;
-// this assumes that the Article object has a `getOwner()`
 }
 }
