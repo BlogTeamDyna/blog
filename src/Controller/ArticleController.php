@@ -9,9 +9,11 @@ use App\Form\ArticleType;
 use App\Form\SearchType;
 use App\Form\CommentaryType;
 use App\Repository\ArticleRepository;
+use App\Service\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +22,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ArticleController extends AbstractController
 {
     #[Route("/article/new", name: "article_create")]
-    public function createAction(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, Article $article = null, ): Response
+    public function createAction(Request $request, EntityManagerInterface $em, SluggerInterface $slugger,FileUploaderService $fileUploaderService,Article $article = null): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
@@ -36,28 +38,19 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $articleFile = $form->get('image')->getData();
+
             if ($articleFile) {
-                $originalFilename = pathinfo($articleFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$articleFile->guessExtension();
-
-                try {
-                    $articleFile->move(
-                        $this->getParameter('images_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $article->setImage($newFilename);
-                dump($articleFile);
+                $fileName = $fileUploaderService->upload($articleFile);
+                $article->setImage($fileName);
             }
 
             $em->persist($article);
             $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Article créé avec succes'
+            );
             return $this->redirectToRoute('homepage');
 
         }
@@ -84,6 +77,11 @@ class ArticleController extends AbstractController
             $em->persist($commentary);
             $em->flush();
 
+            $this->addFlash(
+                'notice',
+                'Un commentaire a été déposé !'
+            );
+
             return $this->redirectToRoute('article_details',[
                 'id' => $article->getId(),
             ]);
@@ -98,19 +96,29 @@ class ArticleController extends AbstractController
     }
 
     #[Route("/article/edit/{id}", name: "article_edit")]
-    public function editAction(EntityManagerInterface $em, Request $request, Article $article): Response
+    public function editAction(EntityManagerInterface $em, Request $request, Article $article,FileUploaderService $fileUploaderService): Response
     {
         $this->denyAccessUnlessGranted('edit', $article);
 
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
+        $articleFile = $form->get('image')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $articleFile = $form->get('image')->getData();
+            if ($articleFile) {
+                $fileName = $fileUploaderService->upload($articleFile);
+                $article->setImage($fileName);
+            }
+
             $em->persist($article);
             $em->flush();
-
+            $this->addFlash(
+                'notice',
+                'Article modifié avec succes'
+            );
             return $this->redirectToRoute('homepage');
         }
 

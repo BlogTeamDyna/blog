@@ -43,7 +43,6 @@ function onTagSubmit() {
 
 document.getElementById("search_search").onchange = function()  {myOnSearch()};
 let input = document.querySelector('input[id^="search_search"]');
-console.log(input)
 
 function myOnSearch() {
     let x = document.getElementById("search_search");
@@ -53,3 +52,9 @@ function myOnSearch() {
     window.location.href = url + "?" + params;
 }
 
+
+// setTimeout(()=> {
+//     let notif = document.getElementById("notify");
+//     console.log(notif);
+//     notif.style.display = 'none';
+// }, 3000);

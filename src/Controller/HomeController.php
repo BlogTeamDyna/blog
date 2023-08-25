@@ -49,14 +49,12 @@ class HomeController extends AbstractController
 
         $searchData = new SearchData();
         $searchData->setSearch($request->query->get("recherche", ""));
-        dump($searchData);
 
         $searchForm = $this->createForm(SearchType::class, $searchData);
 
         if($searchData != "") {
             $articles = $em->getRepository(Article::class)->searchByTitleAndDescription($searchData);
         }
-
 
         $pagination = $paginator->paginate(
             $articles,$page,$numberPerPage

@@ -40,8 +40,8 @@ class Article
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?User $user = null;
 
-   #[ORM\Column(type: Types::STRING)]
-    public string $image;
+   #[ORM\Column(type: Types::STRING, nullable:true)]
+    public ?string $image = null;
 
     public function __construct()
     {
@@ -161,14 +161,14 @@ class Article
         return $this;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image = null): self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }

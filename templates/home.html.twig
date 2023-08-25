@@ -11,15 +11,8 @@
 		<cite title="Source Title">Leonardo DiCaprio</cite>
 	</footer>
 	</blockquote>
-	<main>
-		<div class="d-flex justify-content-center">
-			{% if is_granted('IS_AUTHENTICATED') is same as( false ) %}
-				<button class="btn btn-info text-center">
-				<a href="{{path('inscription')}}" style="text-decoration:none;color: white;">I N S C R I P T I O N</a>
-				</button>
-			{% endif %}
-		</div>
 
+	<main>
 		<div class="d-flex justify-content-center" style="margin: 1em;">
 			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
@@ -31,7 +24,7 @@
 				</button>
 
 				{% elseif is_granted('IS_AUTHENTICATED_FULLY') is same as( false )  %}
-					<button class="btn btn-primary">
+					<button class="homelogin btn btn-primary">
 						<a href="{{path('app_login')}}" style="text-decoration:none;color: white">Connexion</a>
 					</button>
 				{% else %}
@@ -57,7 +50,7 @@
 					<div class="col ms-5">
 						<div class="p-5">
 							<div class="card" style="width: 17rem;">
-								<img src="https://gifdb.com/images/high/shrek-meme-screaming-donkey-scared-shower-cap-o0eurbrdua67nj24.gif" alt="fun">
+								<img width="270" height="300" src="{{ asset('uploads/' ~ article.image) }}" alt="avion"/>
 								<div class="card-body">
 									<h5 class="card-title">{{ article.title }}</h5>
 									<p class="card-text">{{ article.description }}</p>

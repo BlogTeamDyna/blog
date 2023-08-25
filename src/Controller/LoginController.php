@@ -28,6 +28,10 @@ class LoginController extends AbstractController
     public function indexSuccess(): Response
     {
         $user = $this->getUser();
+        $this->addFlash(
+            'notice',
+            'vous êtes connecté'
+        );
 
         if(in_array('ROLE_ADMIN',$user->getRoles())) {
             return $this->redirectToRoute('adminpage');

@@ -6,7 +6,6 @@ class SearchData
 {
     public string $search = "";
 
-
     /**
      * @return string
      */

@@ -6,3 +6,12 @@
 #light {
     width: 20%;
 }
+.logboutton:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    box-shadow: 0 0 0 4px #5a01a7;
+}
+.homelogin:hover {
+    outline-color: #5a01a7;
+    outline-style: groove;
+}
