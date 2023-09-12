@@ -43,6 +43,7 @@ class HomeController extends AbstractController
         }
 
         $tagForm = $this->createForm(HomeType::class,null,['selectedTags' => $arrayTagsObject]);
+
         $numberPerPage = $request->query->get("numPerPage", 3);
 
         $paginationForm = $this->createForm(PaginationType::class, null,['numberPerPage' => $numberPerPage]);
@@ -75,6 +76,15 @@ class HomeController extends AbstractController
 
         return $this->render('tag/index.html.twig', [
             'tags' => $tags
+        ]);
+    }
+
+    public function globalViewsCounter(Article $article): Response
+    {
+        $globalView = $article->getView();
+        dump($globalView);
+        return $this->render('home.html.twig',[
+            'globalView' => $globalView
         ]);
     }
 }

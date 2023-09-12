@@ -17,11 +17,14 @@ class CommentaryType extends AbstractType
     {
         $builder
             ->add('comment', TextareaType::class, [
+                'attr' => [
+                    'placeholder' => 'Laissez un commentaire si cet article vous a plu !'
+                ],
                 'required' => true,
-                'label' => "commentaire :"
-            ])
+                'label' => false,
+                ])
             ->add('save', SubmitType::class, [
-                'label' => "Ajouter"
+                'label' => "commenter"
             ]);
     }
 

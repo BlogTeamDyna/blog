@@ -31,6 +31,9 @@ class Article
     #[Gedmo\Timestampable]
     private $updated;
 
+    #[ORM\Column(type: Types::INTEGER)]
+    private int $view = 0;
+
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Commentary::class, orphanRemoval: true)]
     private Collection $commentaries;
 
@@ -48,7 +51,6 @@ class Article
         $this->commentaries = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
-
 
     public function getId(): int
     {
@@ -124,7 +126,6 @@ class Article
         return $this;
     }
 
-
     /**
      * @return Collection<int, Tag>
      */
@@ -171,5 +172,26 @@ class Article
     public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    /**
+     * @return int
+     */
+    public function getView(): int
+    {
+        return $this->view;
+    }
+
+    /**
+     * @param int $view
+     */
+    public function setView(int $view): void
+    {
+        $this->view = $view;
+    }
+
+    public function increment(): void
+    {
+        $this->view++;
     }
 }

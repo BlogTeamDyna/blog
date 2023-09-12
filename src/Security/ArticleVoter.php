@@ -12,6 +12,7 @@ class ArticleVoter extends Voter
 // these strings are just invented: you can use anything
 const DELETE = 'delete';
 const EDIT = 'edit';
+
 private $security;
 public function __construct(Security $security)
 {

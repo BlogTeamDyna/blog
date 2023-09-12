@@ -43,7 +43,6 @@ class ArticleController extends AbstractController
                 $fileName = $fileUploaderService->upload($articleFile);
                 $article->setImage($fileName);
             }
-
             $em->persist($article);
             $em->flush();
 
@@ -63,6 +62,10 @@ class ArticleController extends AbstractController
     #[Route("/article/details/{id}", name: "article_details")]
     public function detailsAction(Article $article, EntityManagerInterface $em, Request $request): Response
     {
+        $article->increment();
+        $em->persist($article);
+        $em->flush();
+
         $user = $this->getUser();
         $commentary = new Commentary();
         $commentary->setArticle($article);
@@ -91,7 +94,7 @@ class ArticleController extends AbstractController
             'article' => $article,
             'form' => $form->createView(),
             'commentary' => $commentary,
-            'commentaries' => $commentaries
+            'commentaries' => $commentaries,
         ]);
     }
 
@@ -117,7 +120,7 @@ class ArticleController extends AbstractController
             $em->flush();
             $this->addFlash(
                 'notice',
-                'Article modifié avec succes'
+                'Article modifié avec success'
             );
             return $this->redirectToRoute('homepage');
         }

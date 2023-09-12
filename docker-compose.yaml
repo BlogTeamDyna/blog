@@ -44,3 +44,11 @@ services:
       - php
       - database
 
+  node:
+    build:
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+      target: symfony_node
+    volumes:
+      - ./:/srv/app
+    command: 'sh -c "yarn install; yarn run build; yarn run watch"'

@@ -1,6 +1,6 @@
 
 #calli {
-    background-color: #d1e7dd;
+    background-color: purple;
 } 
 
 #light {
@@ -15,3 +15,25 @@
     outline-color: #5a01a7;
     outline-style: groove;
 }
+
+.font {
+    font-family: "bahaus 93", serif;
+}
+
+#font {
+    font-family: "Bauhaus 93", serif;
+}
+
+.divGeneralDetail {
+    background-color: grey;
+    font-size: 16px;
+}
+
+#divCommentary {
+    width: 30%;
+}
+
+.maclasse{
+    margin-top: 2em;
+}
+

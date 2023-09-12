@@ -1,32 +1,46 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+<div class="divGeneralDetail">
 
-	<h3 class="container display-7 border border-warning-subtle text-center rounded-3">Détails articles :</h3>
 
-	<h5 class="text-center">{{ article.title }}</h5>
-	<p class="container text-center">{{ article.description }}</p>
+<h3 class="font container display-7 border border-warning-subtle text-center rounded-3">Détails articles :</h3>
+
+
+
+	<h5 class="font text-center">{{ article.title }}</h5>
+	<p class="font container text-center">{{ article.description }}</p>
 	<div class="text-center">
 		<img id="light" class="" src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Gorgosaurus_BW_transparent.png" alt="">
 	</div>
-	<p class="container text-center border border-success-subtle rounded-5">Dernière modification le
-		{{ article.updated|date("d/m/Y H:i:s") }}</p>
-
 	{% set role = article.getUser() %}
 	{% if app.user is same as(role) or is_granted('ROLE_ADMIN')%}
-		<div class="d-flex justify-content-center">
-			<a class="btn btn-primary" href="{{path('article_edit', { id : article.id }) }}">Modifier</a>
-			<a class="btn btn-primary" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">Supprimer</a>
+		<div class="d-flex justify-content-center mt-2 mb-2" >
+			<a id="font" class="btn btn-primary" href="{{path('article_edit', { id : article.id }) }}">Modifier</a>
+			<a id="font" class="btn btn-primary" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">Supprimer</a>
 		</div>
 	{% endif %}
+	<div class="container text-center border border-success-subtle rounded-5">
+		<p class="font mt-2">Dernière modification le {{ article.updated|date("d/m/Y H:i:s") }}</p>
+		<p class="font mb-2">Nombre de vues : {{ article.view }}</p>
+	</div>
+{#	{% set role = article.getUser() %}#}
+{#	{% if app.user is same as(role) or is_granted('ROLE_ADMIN')%}#}
+{#		<div class="d-flex justify-content-center mt-3">#}
+{#			<a id="font" class="btn btn-primary" href="{{path('article_edit', { id : article.id }) }}">Modifier</a>#}
+{#			<a id="font" class="btn btn-primary" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">Supprimer</a>#}
+{#		</div>#}
+{#	{% endif %}#}
 
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-		<div class="container" id="divCommentary">
+		<div class="font mt-3 border border-success-subtle rounded-5 container text-center" id="divCommentary">
 			{{ form_start(form) }}
-			<p>{{ form_row(form.comment) }}</p>
+			{{ form_label(form.comment) }}
+			<p>{{ form_widget(form.comment) }}</p>
+
 			<div class="d-flex justify-content-center">
-				<p class="text-center button">{{ form_row(form.save) }}</p>
+				<p class="text-center">{{ form_row(form.save) }}</p>
 			</div>
 			{{ form_end(form) }}
 		</div>
@@ -40,8 +54,8 @@
 
 	<div class="container">
 		{% for commentary in commentaries %}
-		<p class="card-text">{{ commentary.comment }}</p>
-		<p class="card-text">{{ commentary.created|date("d/m/Y H:i:s") }}</p>
+		<p class="font card-text">{{ commentary.comment }}</p>
+		<p class="font card-text">{{ commentary.created|date("d/m/Y H:i:s") }}</p>
 		{% endfor %}
 	</div>
 
@@ -55,4 +69,5 @@
 			}
 	}
 	</script>
+</div>
 {% endblock %}

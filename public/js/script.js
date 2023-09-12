@@ -1,8 +1,4 @@
-// Récuperation de l'id de la selection du nombre d'articles par page
-// Au changement de la valeur refresh le block des articles
 
-
-// envoyer l'url courante avec tout les parametres
 document.getElementById("pagination_tri").onchange = function()  {myOnChange()};
 
 let currentUrl = new URL(window.location.href);
