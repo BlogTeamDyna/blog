@@ -17,15 +17,15 @@
 }
 
 .font {
-    font-family: "bahaus 93", serif;
+    font-family: Rockwell, serif, serif;
 }
 
 #font {
-    font-family: "Bauhaus 93", serif;
+    font-family: Rockwell, serif;
 }
 
 .divGeneralDetail {
-    background-color: grey;
+    background-color: paleturquoise;
     font-size: 16px;
 }
 
