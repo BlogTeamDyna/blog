@@ -24,8 +24,6 @@ class HomeType extends AbstractType
                 'expanded'      => true
             ]);
 
-
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

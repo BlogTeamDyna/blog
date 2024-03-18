@@ -51,7 +51,6 @@ class ArticleController extends AbstractController
                 'Article créé avec succes'
             );
             return $this->redirectToRoute('homepage');
-
         }
 
         return $this->render('article/new.html.twig', [
@@ -106,7 +105,6 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
-        $articleFile = $form->get('image')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
 

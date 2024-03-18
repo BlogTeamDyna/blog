@@ -1,71 +1,113 @@
 {% extends "base.html.twig" %}
 
-{% block body %}
-	<header>
-		<h1 id="font" class="text-center p-3 text-warning-emphasis bg-success-subtle border border-success-subtle rounded-5">The Blog</h1>
-	</header>
+{#{% form_theme form 'bootstrap_4_layout.html.twig' %}#}
 
+{% block body %}
 	<div>
 		<blockquote class="blockquote text-center">
-			<p id="font" class="mb-2">Bienvenue à toi sur ce blog gorgé de design et de fonctionnalités !</p>
+			<p id="font" class="mb-2">Bienvenue à toi sur ce joli blog !!</p>
 			<footer class="blockquote-footer">
 				<cite id="font" title="Source Title">Leonardo DiCaprio</cite>
 			</footer>
 		</blockquote>
 	</div>
 	<main>
-		<div class="d-flex justify-content-center" style="margin: 1em;">
-			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+{#		<div class="d-flex justify-content-center" style="margin: 0;">#}
+{#			{% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
 
-				<button class="btn btn-success btn-sm">
-					<a href="{{ path('app_logout') }}" style="text-decoration:none;color: white">Deconnexion</a>
-				</button>
-				<button class="btn btn-success btn-sm">
+{#				<button class="btn btn-success btn-sm m-2">#}
+{#					<a href="{{ path('app_logout') }}" style="text-decoration:none;color: white">Deconnexion</a>#}
+{#				</button>#}
+{#				<button class="btn btn-success btn-sm m-2">#}
+{#						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Créer article</a>#}
+{#				</button>#}
+
+{#				{% elseif is_granted('ROLE_ADMIN') %}#}
+{#					<button class="btn btn-success btn-sm m-2">#}
+{#						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Espace admin</a>#}
+{#					</button>#}
+{#				{% elseif is_granted('IS_AUTHENTICATED_FULLY') is same as( false )  %}#}
+{#					<button class="homelogin btn btn-success btn-sm m-2">#}
+{#						<a href="{{path('app_login')}}" style="text-decoration:none;color: white">Connexion</a>#}
+{#					</button>#}
+{#					<button class="homelogin btn btn-success btn-sm m-2">#}
+{#						<a href="{{path('app_login')}}" style="text-decoration:none;color: white">Inscription</a>#}
+{#					</button>#}
+{#				{% else %}#}
+
+{#			{% endif %}#}
+
+{#		</div>#}
+
+{#		<div class="d-flex justify-content-center mb-1 form-group">#}
+{#			{{ form_start(searchForm) }}#}
+{#				<p>{{ form_row(searchForm.search) }}</p>#}
+{#			{{ form_end(searchForm) }}#}
+{#		</div>#}
+
+		<div id="calli" class="container border border-success-subtle rounded-5">
+			<div class="d-flex justify-content-center" style="margin: 0;">
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+					<button class="btn btn-success btn-sm m-2">
+						<a href="{{ path('app_logout') }}" style="text-decoration:none;color: white">Deconnexion</a>
+					</button>
+					<button class="btn btn-success btn-sm m-2">
 						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Créer article</a>
-				</button>
+					</button>
 
+				{% elseif is_granted('ROLE_ADMIN') %}
+					<button class="btn btn-success btn-sm m-2">
+						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Espace admin</a>
+					</button>
 				{% elseif is_granted('IS_AUTHENTICATED_FULLY') is same as( false )  %}
-					<button class="homelogin btn btn-success btn-sm">
+					<button class="homelogin btn btn-dark btn-sm m-2 mt-3">
 						<a href="{{path('app_login')}}" style="text-decoration:none;color: white">Connexion</a>
+					</button>
+					<button class="homelogin btn btn-dark btn-sm m-2 mt-3">
+						<a href="{{path('inscription')}}" style="text-decoration:none;color: white">Inscription</a>
 					</button>
 				{% else %}
 
-			{% endif %}
+				{% endif %}
 
-		</div>
-		<div class="d-flex justify-content-center mb-2">
-		{{ form_start(searchForm) }}
-					{{ form_row(searchForm.search) }}
-		{{ form_end(searchForm) }}
-		</div>
-			<div id="calli" class="container px-4 bg-success-subtle border border-success-subtle rounded-5">
-			<div class="row gx-2">
-				<div id="tag_filtre" class="font ms-5 mt-2">
+			</div>
+
+			<div class="d-flex justify-content-center form-group">
+				{{ form_start(searchForm) }}
+				<p>{{ form_row(searchForm.search) }}</p>
+				{{ form_end(searchForm) }}
+			</div>
+
+			<div class="row gx-2" style="justify-content: space-between">
+				<div id="tag_filtre"  class="font ms-5">
 					{{ form_start(form) }}
 					{{ form_end(form) }}
 				</div>
 
 				{% for article in pagination %}
-					<div class="col ms-5">
+					<div class="col ms-4">
 						<div class="p-5">
 							<div class="card" style="width: 17rem;">
 								<img width="270" height="300" src="{{ asset('uploads/' ~ article.image) }}" alt="avion"/>
 								<div class="card-body">
 									<h4 id="font" class="card-title">{{ article.title }}</h4>
-									<p id="font" class="card-text">{{ article.description }}</p>
+{#									<p id="font" class="card-text">{{ article.description }}</p>#}
 									{% for tag in article.tags %}
 										<p class="card-text btn btn-warning btn-sm">{{ tag }}</p>
 									{% endfor %}
 									<p class="card-text">{{ article.created|date("d/m/Y H:i:s") }}</p>
-									<a href="{{ path('article_details', { id : article.id }) }}" class="btn btn-primary">Détails</a>
+									<div class="text-center">
+										<a href="{{ path('article_details', { id : article.id }) }}" class="btn btn-primary">Détails</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				{% endfor %}
 
-				<div class="d-flex justify-content-center ">
-				{{ knp_pagination_render(pagination) }}
+				<div class="d-flex justify-content-center text-dark" style="text-decoration: none">
+					{{ knp_pagination_render(pagination) }}
 				</div>
 
 				<div class="d-flex justify-content-center">
@@ -77,11 +119,6 @@
 		</div>
 	</main>
 {#	<p>Nombre de vues : {{ globalView }}</p>#}
-
-	<footer>
-		<div id="font" class="mt-2 text-center p-3 text-warning-emphasis bg-success-subtle border border-success-subtle rounded-5"><h4>Merci de votre visite et à bientot !</h4></div>
-		<div id="font" class="text-center">Tous droits réservés(r)</div>
-	</footer>
 	<script src="{{ asset( 'js/script.js ') }}"></script>
 
-		{% endblock %}
+{% endblock %}

@@ -13,10 +13,21 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('homepage');
+        };
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+
+        if(isset($error)) {
+            $this->addFlash(
+                'notice',
+                'mot de passe ou email incorrect'
+            );
+        }
 
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,

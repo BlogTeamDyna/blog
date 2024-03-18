@@ -17,14 +17,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class SearchType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('search', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Rechercher via un mot clé..'
                 ],
-                'label' => "Q",
+                'label' => false,
                 'required' => false,
                 'empty_data' => '',
             ]);
@@ -36,9 +36,9 @@ class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver):void
     {
         $resolver->setDefaults([
-                                'method' => 'GET',
-                                'data_class' => SearchData::class,
-                                'crf_protection' => false
-                               ]);
+            'method' => 'GET',
+            'data_class' => SearchData::class,
+            'crf_protection' => false
+           ]);
     }
 }

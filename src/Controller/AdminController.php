@@ -17,7 +17,9 @@ class AdminController extends AbstractController {
     #[Route("/admin", name: "adminpage")]
     public function index(EntityManagerInterface $em): Response
     {
+
         $user = $this->getUser();
+
         $articles = $em->getRepository(Article::class)->findAll();
         $commentary = $em->getRepository(Commentary::class)->findAll();
 
@@ -28,5 +30,4 @@ class AdminController extends AbstractController {
             'id' => $user->getId(),
         ]);
     }
-
 }

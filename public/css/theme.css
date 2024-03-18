@@ -1,6 +1,7 @@
 
 #calli {
-    background-color: purple;
+    background-color: burlywood;
+
 } 
 
 #light {
@@ -25,7 +26,7 @@
 }
 
 .divGeneralDetail {
-    background-color: paleturquoise;
+    background-color: #e9f3db;
     font-size: 16px;
 }
 
@@ -33,7 +34,26 @@
     width: 30%;
 }
 
-.maclasse{
+.maclasse {
     margin-top: 2em;
 }
 
+#textarea1 {
+    resize: none;
+}
+
+#newArticle {
+    background-color: burlywood;
+    max-height: 100%;
+}
+
+#footeur {
+    position: fixed;
+    left: 40%;
+    right: auto;
+    bottom: 0;
+}
+
+#marge {
+    margin-bottom: 24em;
+}

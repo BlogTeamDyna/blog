@@ -37,7 +37,13 @@ function onTagSubmit() {
 // Setter les valeur au model Data SearchData - php
 // Filtrer les articles depuis le Repo Article en passant l'objet model SearchData - php
 
-document.getElementById("search_search").onchange = function()  {myOnSearch()};
+//document.getElementById("search_search").onchange = function()  {myOnSearch()};
+document.getElementById("search_search").addEventListener("keyup",(e) => {
+    if(e.keyCode == 13) {
+        e.stopPropagation();
+        myOnSearch();
+    }
+})
 let input = document.querySelector('input[id^="search_search"]');
 
 function myOnSearch() {
