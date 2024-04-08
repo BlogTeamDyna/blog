@@ -1,15 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block header %}
-
-{% endblock %}
 
 {% block body %}
-<div id="calli" class="m-3" style="max-height: 100%">
-    <h3 class="text-center">Bienvenu sur l'espace connexion</h3>
+<div id="" class="m-3" style="max-height: 100%;">
+    <h1 class="text-center" style="margin-top: 3em; font-family: 'Workbench',sans-serif">ESPACE DE CONNEXION</h1>
 
     <div class="text-center mt-4" style="width: 30%; margin-left: auto; margin-right: auto">
-    <form style="display: flex; justify-content: center; flex-direction: column;" action="{{ path('app_login') }}" method="post">
+    <form style="display: flex; justify-content: center; flex-direction: column; margin-top: 5em;" action="{{ path('app_login') }}" method="post">
         <label for="username">Email:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}"/>
 
@@ -19,7 +16,7 @@
 {#         If you want to control the URL the user is redirected to on success#}
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button class="logboutton btn btn-dark mt-2" type="submit">connexion</button>
+        <button class="logboutton btn btn-dark mt-2 mb-2" type="submit">connexion</button>
 
         <input type="hidden" name="_target_path" value="/login_success"/>
 

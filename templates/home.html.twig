@@ -3,61 +3,30 @@
 {#{% form_theme form 'bootstrap_4_layout.html.twig' %}#}
 
 {% block body %}
-	<div>
-		<blockquote class="blockquote text-center">
-			<p id="font" class="mb-2">Bienvenue à toi sur ce joli blog !!</p>
-			<footer class="blockquote-footer">
-				<cite id="font" title="Source Title">Leonardo DiCaprio</cite>
-			</footer>
-		</blockquote>
-	</div>
+	<header class="py-2 bg-light border-bottom mb-4">
+		<div class="text-center container">
+			<div class="my-1" style="">
+				<h1 class="" style="font-family:'Workbench', sans-serif; ">Bienvenue chez nous</h1>
+				<p style="font-family: 'Bahnschrift',sans-serif">Notre site à design modeste vous permet de lire des articles à but informel, des commentaires déja laissé par la communauté,
+				ou encore de vous créer un compte afin de pouvoir laisser des commentaires
+				ou créer un article par vous-même !</p>
+			</div>
+		</div>
+	</header>
 	<main>
-{#		<div class="d-flex justify-content-center" style="margin: 0;">#}
-{#			{% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
-
-{#				<button class="btn btn-success btn-sm m-2">#}
-{#					<a href="{{ path('app_logout') }}" style="text-decoration:none;color: white">Deconnexion</a>#}
-{#				</button>#}
-{#				<button class="btn btn-success btn-sm m-2">#}
-{#						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Créer article</a>#}
-{#				</button>#}
-
-{#				{% elseif is_granted('ROLE_ADMIN') %}#}
-{#					<button class="btn btn-success btn-sm m-2">#}
-{#						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Espace admin</a>#}
-{#					</button>#}
-{#				{% elseif is_granted('IS_AUTHENTICATED_FULLY') is same as( false )  %}#}
-{#					<button class="homelogin btn btn-success btn-sm m-2">#}
-{#						<a href="{{path('app_login')}}" style="text-decoration:none;color: white">Connexion</a>#}
-{#					</button>#}
-{#					<button class="homelogin btn btn-success btn-sm m-2">#}
-{#						<a href="{{path('app_login')}}" style="text-decoration:none;color: white">Inscription</a>#}
-{#					</button>#}
-{#				{% else %}#}
-
-{#			{% endif %}#}
-
-{#		</div>#}
-
-{#		<div class="d-flex justify-content-center mb-1 form-group">#}
-{#			{{ form_start(searchForm) }}#}
-{#				<p>{{ form_row(searchForm.search) }}</p>#}
-{#			{{ form_end(searchForm) }}#}
-{#		</div>#}
-
 		<div id="calli" class="container border border-success-subtle rounded-5">
 			<div class="d-flex justify-content-center" style="margin: 0;">
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-					<button class="btn btn-success btn-sm m-2">
+					<button class="btn btn-dark btn-sm m-2">
 						<a href="{{ path('app_logout') }}" style="text-decoration:none;color: white">Deconnexion</a>
 					</button>
-					<button class="btn btn-success btn-sm m-2">
+					<button class="btn btn-dark btn-sm m-2">
 						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Créer article</a>
 					</button>
 
 				{% elseif is_granted('ROLE_ADMIN') %}
-					<button class="btn btn-success btn-sm m-2">
+					<button class="btn btn-dark btn-sm m-2">
 						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Espace admin</a>
 					</button>
 				{% elseif is_granted('IS_AUTHENTICATED_FULLY') is same as( false )  %}
@@ -79,26 +48,26 @@
 				{{ form_end(searchForm) }}
 			</div>
 
-			<div class="row gx-2" style="justify-content: space-between">
-				<div id="tag_filtre"  class="font ms-5">
+			<div class="row gx-2" style="margin-right: auto; margin-left: 6em;">
+				<div id="tag_filtre"  class="font mb-3 ms-2">
 					{{ form_start(form) }}
 					{{ form_end(form) }}
 				</div>
 
 				{% for article in pagination %}
-					<div class="col ms-4">
-						<div class="p-5">
+					<div class="col" style="">
+						<div class="d-flex" style="">
 							<div class="card" style="width: 17rem;">
 								<img width="270" height="300" src="{{ asset('uploads/' ~ article.image) }}" alt="avion"/>
 								<div class="card-body">
 									<h4 id="font" class="card-title">{{ article.title }}</h4>
 {#									<p id="font" class="card-text">{{ article.description }}</p>#}
 									{% for tag in article.tags %}
-										<p class="card-text btn btn-warning btn-sm">{{ tag }}</p>
+										<p class="card-text btn btn-primary btn-sm">{{ tag }}</p>
 									{% endfor %}
 									<p class="card-text">{{ article.created|date("d/m/Y H:i:s") }}</p>
 									<div class="text-center">
-										<a href="{{ path('article_details', { id : article.id }) }}" class="btn btn-primary">Détails</a>
+										<a href="{{ path('article_details', { id : article.id }) }}" class="btn btn-dark">Détails</a>
 									</div>
 								</div>
 							</div>
@@ -106,15 +75,14 @@
 					</div>
 				{% endfor %}
 
-				<div class="d-flex justify-content-center text-dark" style="text-decoration: none">
-					{{ knp_pagination_render(pagination) }}
-				</div>
-
-				<div class="d-flex justify-content-center">
-						{{ form_start(forme) }}
-						{{ form_row(forme) }}
-						{{ form_end(forme) }}
-				</div>
+			</div>
+			<div class="d-flex justify-content-center text-dark mt-4" style="text-decoration: none">
+				{{ knp_pagination_render(pagination) }}
+			</div>
+			<div class="d-flex justify-content-center mt-2" style="margin-bottom: 4em;">
+				{{ form_start(forme) }}
+				{{ form_row(forme) }}
+				{{ form_end(forme) }}
 			</div>
 		</div>
 	</main>

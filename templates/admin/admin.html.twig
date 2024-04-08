@@ -3,25 +3,46 @@
 {#{% form_theme form 'bootstrap_4_layout.html.twig' %}#}
 
 {% block body %}
-    <h4 class="text-center">Admin</h4>
-    <p class="text-center mb-0">Bonjour <span style="font-style: oblique; font-size: large">{{ user.email }} !</span></p>
-    <div class="d-flex justify-content-center">
-        <button class="btn btn-dark text-center mt-2 mb-2">
+    <h1 class="titre text-center">ESPACE ADMIN</h1>
+    <p class="text-center mb-0 color">{{ user.email }} </p>
+    <div class="d-flex justify-content-center p-1">
+        <button class="btn btn-dark text-center mt-2 mb-2 me-1">
             <a href="{{path('homepage')}}" style="text-decoration:none;color: white;">acceuil</a>
         </button>
-    </div>
-    <div id="calli" class="text-center" style="border: black solid 1px; margin-left: 5%;margin-right: 5%;">
-        <h5>ARTICLES</h5>
-        {% for article in articles %}
-            <div class="card text-center mb-3" style="max-width: 20%;margin-left: auto;margin-right: auto;">
-                <p class="mb-1">{{ article.title }}</p>
-                <img class="mb-3" style="margin-left: auto;margin-right: auto;" width="270" height="300" src="{{ asset('uploads/' ~ article.image) }}" alt="avion"/>
-                <p class="mb-1" style="color: gray">Nombre de vues : {{ article.view }}</p>
-                <a class="btn btn-primary" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">supprimer</a>
-            </div>
-        {% endfor %}
+        <button class="btn btn-dark text-center mt-2 mb-2">
+            <a href="{{path('app_tag_index')}}" style="text-decoration:none;color: white;">tags</a>
+        </button>
     </div>
 
+    <div class="row gx-2" style="justify-content: space-between">
+        <div class="d-flex justify-content-center text-dark mb-2" style="text-decoration: none">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        <div class="d-flex justify-content-center form-group">
+            {{ form_start(searchForm) }}
+            <p>{{ form_row(searchForm.search) }}</p>
+            {{ form_end(searchForm) }}
+        </div>
+
+        <div id="" style="max-width: 80%;margin-left: auto; margin-right: auto" class="d-flex justify-content-center">
+            {% for article in pagination %}
+                <div class="col ms-4" style="">
+                    <div class="d-flex justify-content-center" style="">
+                        <div class="card" style="width: 17rem;">
+                            <img width="270" height="300" src="{{ asset('uploads/' ~ article.image) }}" alt="avion"/>
+                            <div class="card-body">
+                                <h4 id="font" class="card-title">{{ article.title }}</h4>
+                                <p class="mb-1" style="color: rgb(128,128,128)">Nombre de vues : {{ article.view }}</p>
+                                <a class="btn btn-primary" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">supprimer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{{ asset( 'js/script.js ') }}"></script>
     <script>
         function deleteAlert() {
             if (confirm("Etes-vous sûr de supprimer cet article ?") === true) {

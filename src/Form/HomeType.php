@@ -21,7 +21,8 @@ class HomeType extends AbstractType
                 'required'      => false,
                 'choice_label'  => 'content',
                 'multiple'      => true,
-                'expanded'      => true
+                'expanded'      => true,
+                'label'         => false,
             ]);
 
     }

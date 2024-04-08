@@ -8,6 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 
 class  ArticleRepository extends EntityRepository
 {
+    // SQl =
     public function getByTags($tags): Query
     {
 
@@ -18,13 +19,15 @@ class  ArticleRepository extends EntityRepository
             ->getQuery();
     }
 
+// SQl = SELECT * FROM article a ORDER BY a.id DESC
     public function getAll(): Query
     {
         return $this->createQueryBuilder('a')
-            ->orderBy('a.id', 'ASC')
+            ->orderBy('a.id', 'DESC')
             ->getQuery();
     }
 
+//  SQl = SELECT * FROM article WHERE article.title LIKE :search OR article.description LIKE :search
     public function searchByTitleAndDescription($searchData): Query
     {
         return $this->createQueryBuilder('a')

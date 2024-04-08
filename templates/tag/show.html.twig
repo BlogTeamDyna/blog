@@ -3,7 +3,7 @@
 {% block title %}Tag{% endblock %}
 
 {% block body %}
-    <h1>Tag</h1>
+    <h2 class="text-center">Tag</h2>
 
     <table class="table">
         <tbody>
@@ -18,10 +18,13 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('app_tag_index') }}">Retour liste</a>
-
-    <a href="{{ path('app_tag_edit', {'id': tag.id}) }}">modifier</a>
-
+    <div class="text-center">
+        <button class="btn btn-dark">
+            <a style="text-decoration: none;" href="{{ path('app_tag_index') }}">Retour liste</a>
+        </button>
+        <button class="btn btn-dark">
+            <a style="text-decoration: none;" href="{{ path('app_tag_edit', {'id': tag.id}) }}">modifer</a>
+        </button>
+    </div>
     {{ include('tag/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,9 +1,13 @@
 
 #calli {
-    background-color: burlywood;
-
+    background-color: #F8F5F0;
+    margin-bottom: 7em;
 } 
 
+.titre {
+    margin-top: 1em;
+    font-family: 'Workbench', sans-serif;
+}
 #light {
     width: 20%;
 }
@@ -49,11 +53,12 @@
 
 #footeur {
     position: fixed;
-    left: 40%;
-    right: auto;
+    width: 100%;
+    /*left: 40%;*/
+    /*right: auto;*/
     bottom: 0;
 }
 
 #marge {
-    margin-bottom: 24em;
+    margin-bottom: 4em;
 }
