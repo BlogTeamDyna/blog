@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Tag;
 use App\Entity\Article;
 use App\Form\HomeType;
@@ -89,5 +90,16 @@ class HomeController extends AbstractController
         return $this->render('home.html.twig',[
             'globalView' => $globalView
         ]);
+=======
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class HomeController extends AbstractController
+{
+    #[Route("/", name: "acceuil")]
+    public function testAction(): Response
+    {
+        return $this->render("home.html.twig");
     }
 }
