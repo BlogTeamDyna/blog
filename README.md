@@ -48,6 +48,3 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
    Ouvrez votre navigateur web et accédez à l'URL suivante : `http://localhost:3306`
 
-## Documentation supplémentaire
-
-Pour obtenir des informations supplémentaires sur l'utilisation et la configuration de notre blog, veuillez consulter notre documentation à l'adresse [lien_vers_la_documentation](https://example.com/documentation).
