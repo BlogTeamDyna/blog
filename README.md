@@ -23,7 +23,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 2. **Installer les dépendances avec Composer :**
 
    ```bash
-   cd votre-projet
+   cd blog
    composer install
    ```
 
@@ -35,7 +35,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 4. **Exécuter les migrations de la base de données :**
 
    ```bash
-   php artisan migrate
+   php bin/console doctrine:migrations:migrate
    ```
 
 5. **Démarrez docker desktop et jouer la commande afin de démarrer les conteneurs de développement :**
