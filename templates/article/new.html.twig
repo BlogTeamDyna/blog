@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+	<div id="newArticle" class="border border-dark-subtle rounded-3 ">
+		<h4 class="container text-center pt-5">Créer ou modifier un article</h4>
+		<div class="container" >
+			{{ form_start(form) }}
+			<p>{{ form_row(form.title) }}</p>
+			<p>{{ form_row(form.description) }}</p>
+			<p>{{ form_row(form.tags) }}</p>
+			<p>{{ form_row(form.image) }}</p>
+
+			<div class="d-flex justify-content-center">
+				<p class="text-center">{{ form_row(form.save) }}</p>
+			</div>
+			{{ form_end(form) }}
+		</div>
+		<div class="d-flex justify-content-center mt-3">
+			<button class="btn btn-info text-center" id="marge">
+				<a href="{{path('homepage')}}" style="text-decoration:none;color: white;">retour</a>
+			</button>
+		</div>
+	</div>
+{% endblock %}

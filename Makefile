@@ -47,6 +47,10 @@ make-migration: ## Create migration from diff
 exec-migration: ## Execute migration in php container
 	$(DOCKER_COMPOSE) exec $(DOCKER_PHP) php bin/console doctrine:migrations:migrate
 
+.PHONY: exec-migration-diff
+exec-migration-diff: ## Execute migration in php container
+	$(DOCKER_COMPOSE) exec $(DOCKER_PHP) php bin/console doctrine:migrations:diff
+
 .PHONY: prev-migration
 prev-migration: ## Rollback previous migration in php container
 	$(DOCKER_COMPOSE) exec $(DOCKER_PHP) php bin/console doctrine:migrations:migrate prev
@@ -87,3 +91,7 @@ ssh-develop: ## Open an ssh connection in develop environment
 .PHONY: ssh-release
 ssh-release: ## Open an ssh connection in release environment
 	symfony cloud:ssh -p shdr3bih7uelg -e release -A dynabuy
+
+.PHONY: unit-test
+unit-test: ## Open an ssh connection in release environment
+	$(DOCKER_COMPOSE) exec $(DOCKER_PHP) php bin/phpunit

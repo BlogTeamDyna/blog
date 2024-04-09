@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Tag{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Créer un nouveau tag</h1>
+    <div class="text-center">{{ include('tag/_form.html.twig') }}</div>
+
+    <a href="{{ path('app_tag_index') }}">Liste des tags</a>
+{% endblock %}

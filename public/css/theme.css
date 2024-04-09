@@ -1,0 +1,64 @@
+
+#calli {
+    background-color: #F8F5F0;
+    margin-bottom: 7em;
+} 
+
+.titre {
+    margin-top: 1em;
+    font-family: 'Workbench', sans-serif;
+}
+#light {
+    width: 20%;
+}
+.logboutton:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    box-shadow: 0 0 0 4px #5a01a7;
+}
+.homelogin:hover {
+    outline-color: #5a01a7;
+    outline-style: groove;
+}
+
+.font {
+    font-family: Rockwell, serif, serif;
+}
+
+#font {
+    font-family: Rockwell, serif;
+}
+
+.divGeneralDetail {
+    background-color: #e9f3db;
+    font-size: 16px;
+}
+
+#divCommentary {
+    width: 30%;
+}
+
+.maclasse {
+    margin-top: 2em;
+}
+
+#textarea1 {
+    resize: none;
+}
+
+#newArticle {
+    background-color: burlywood;
+    max-height: 100%;
+}
+
+#footeur {
+    position: fixed;
+    width: 100%;
+    /*left: 40%;*/
+    /*right: auto;*/
+    bottom: 0;
+}
+
+#marge {
+    margin-bottom: 4em;
+}

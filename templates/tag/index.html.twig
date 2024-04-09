@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tag{% endblock %}
+
+{% block body %}
+    <h2 class="text-center">Tags</h2>
+
+    <div class="text-center">
+        <button class="btn btn-dark">
+            <a style="text-decoration: none;" href="{{ path('app_tag_new') }}">Créer un tag</a>
+        </button>
+        <button class="btn btn-dark">
+            <a style="text-decoration: none;" href="{{ path('homepage') }}">Acceuil</a>
+        </button>
+    </div>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Contenu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+            <tr>
+                <td>{{ tag.id }}</td>
+                <td>{{ tag.content }}</td>
+                <td>
+                    <button class="btn btn-light">
+                        <a style="text-decoration: none;" href="{{ path('app_tag_show', {'id': tag.id}) }}">afficher</a>
+                    </button>
+                    <button class="btn btn-light">
+                        <a style="text-decoration: none;" href="{{ path('app_tag_edit', {'id': tag.id}) }}">modifer</a>
+                    </button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun tag </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

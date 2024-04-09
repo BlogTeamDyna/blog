@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tag{% endblock %}
+
+{% block body %}
+    <h2 class="text-center">Tag</h2>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tag.id }}</td>
+            </tr>
+            <tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ tag.content }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <button class="btn btn-dark">
+            <a style="text-decoration: none;" href="{{ path('app_tag_index') }}">Retour liste</a>
+        </button>
+        <button class="btn btn-dark">
+            <a style="text-decoration: none;" href="{{ path('app_tag_edit', {'id': tag.id}) }}">modifer</a>
+        </button>
+    </div>
+    {{ include('tag/_delete_form.html.twig') }}
+{% endblock %}
