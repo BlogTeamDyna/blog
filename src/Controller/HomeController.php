@@ -21,6 +21,8 @@ class HomeController extends AbstractController
     public function homeAction(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator
     ): Response
     {
+
+        $user = $this->getUser();
         $articles = $em->getRepository(Article::class)->getAll();
 
         $page = $request->query->get('page', 1);
@@ -69,7 +71,8 @@ class HomeController extends AbstractController
             'form' => $tagForm,
             'forme' => $paginationForm,
             'searchForm' => $searchForm,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'user' => $user
         ]);
     }
 

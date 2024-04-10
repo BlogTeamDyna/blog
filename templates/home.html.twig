@@ -6,16 +6,22 @@
 	<header class="py-2 bg-light border-bottom mb-4">
 		<div class="text-center container">
 			<div class="my-1" style="">
-				<h1 class="" style="font-family:'Workbench', sans-serif; ">Bienvenue chez nous</h1>
-				<p style="font-family: 'Bahnschrift',sans-serif">Notre site à design modeste vous permet de lire des articles à but informel, des commentaires déja laissé par la communauté,
-				ou encore de vous créer un compte afin de pouvoir laisser des commentaires
-				ou créer un article par vous-même !</p>
+				<h1 class="" style="font-family:'Workbench', sans-serif;">Bienvenue chez nous</h1>
+				<p style="font-family: 'Bahnschrift',sans-serif; max-width: 60%;margin-right: auto; margin-left: auto">Notre site à design modeste te permets de lire des articles à but informel ou des commentaires déja laissés par la communauté,
+				ou encore de te créer un compte afin de laisser des commentaires ou de créer un article par toi-même !</p>
 			</div>
 		</div>
 	</header>
 	<main>
 		<div id="calli" class="container border border-success-subtle rounded-5">
 			<div class="d-flex justify-content-center" style="margin: 0;">
+
+{#				{% if user.getRoles() is same as(['ROLE_ADMIN','ROLE_USER'])  %}#}
+{#					<button class="btn btn-dark btn-sm m-2">#}
+{#						<a href="{{path('adminpage')}}" style="text-decoration:none;color: white">Espace admin</a>#}
+{#					</button>#}
+{#				{% endif %}#}
+
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
 					<button class="btn btn-dark btn-sm m-2">
@@ -25,7 +31,7 @@
 						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Créer article</a>
 					</button>
 
-				{% elseif is_granted('ROLE_ADMIN') %}
+				{% elseif is_granted('IS_AUTHENTICATED_FULLY') and user.getRoles() is same as(['ROLE_ADMIN','ROLE_USER']) %}
 					<button class="btn btn-dark btn-sm m-2">
 						<a href="{{path('article_create')}}" style="text-decoration:none;color: white">Espace admin</a>
 					</button>

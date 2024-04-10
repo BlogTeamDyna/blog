@@ -7,7 +7,7 @@
 
 	<h3 class="font container display-7 border border-warning-subtle text-center rounded-3">Détails articles :</h3>
 
-	<h5 class="font text-center">{{ article.title }}</h5>
+	<h3 class="font text-center fw-bold">{{ article.title }}</h3>
 	<p class="font container text-center">{{ article.description }}</p>
 	<div class="text-center">
 		<img id="light" class="" src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Gorgosaurus_BW_transparent.png" alt="">
@@ -26,7 +26,6 @@
 	</div>
 
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-
 		<div class="font mt-3 container text-center" id="divCommentary">
 			<div class="container">
 				{{ form_start(form) }}
@@ -45,10 +44,11 @@
 	{% else %}
 	{% endif %}
 
-	<div class="container">
+	<div class="container" style="margin-bottom: 5em;">
 		{% for commentary in commentaries %}
-		<p class="font card-text">{{ commentary.comment }}</p>
 		<p class="font card-text">{{ commentary.created|date("d/m/Y H:i:s") }}</p>
+		<p class="font card-text">{{ commentary.comment }}</p>
+
 		{% endfor %}
 	</div>
 

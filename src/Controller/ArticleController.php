@@ -134,6 +134,10 @@ class ArticleController extends AbstractController
         $this->denyAccessUnlessGranted('delete', $article);
         $em->remove($article);
         $em->flush();
+        $this->addFlash(
+            'alert',
+            'Article supprimé avec success'
+        );
         return $this->redirectToRoute('adminpage');
     }
 
