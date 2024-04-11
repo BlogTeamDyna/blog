@@ -1,3 +1,6 @@
+(La derniere version du projet est sur develop)
+
+
 # Installation du Blog
 
 Ce guide vous aidera à installer et à configurer notre blog.
