@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="" class="m-3" style="max-height: 100%;">
+    <div class="" style="max-height: 100%;">
         <h1 class="text-center" style="margin-top: 3em; font-family: 'Workbench',sans-serif">ESPACE DE CONNEXION</h1>
 
-        <div class="text-center mt-4" style="width: 30%; margin-left: auto; margin-right: auto">
+        <div class="text-center" style="width: 30%; margin-left: auto; margin-right: auto">
             <form style="display: flex; justify-content: center; flex-direction: column; margin-top: 5em;" action="{{ path('app_login') }}" method="post">
                 <label for="username">Email:</label>
                 <input type="text" id="username" name="_username" value="{{ last_username }}"/>

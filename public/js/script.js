@@ -35,9 +35,9 @@ function onTagSubmit() {
 // Envoyer les données au home controller (voir exemple ci-dessus) - js
 // Recuperer les valeurs depuis la requete - php
 // Setter les valeur au model Data SearchData - php
-// Filtrer les articles depuis le Repo Article en passant l'objet model SearchData - php
+// Filtrer les articles depuis le Repo Article en passant l'objet model SearchData
 
-//document.getElementById("search_search").onchange = function()  {myOnSearch()};
+
 document.getElementById("search_search").addEventListener("keyup",(e) => {
     if(e.keyCode == 13) {
         e.stopPropagation();
