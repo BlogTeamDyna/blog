@@ -17,6 +17,10 @@ class TagController extends AbstractController
     #[Route('/', name: 'app_tag_index', methods: ['GET'])]
     public function index(TagRepository $tagRepository): Response
     {
+        if(!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('homepage');
+        }
+
         return $this->render('tag/index.html.twig', [
             'tags' => $tagRepository->findAll(),
         ]);

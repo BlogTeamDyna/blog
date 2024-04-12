@@ -30,13 +30,17 @@
 }
 
 .divGeneralDetail {
-    background-color: #e9f3db;
+    background-color: #F8F5F0;
     font-size: 16px;
 }
 
 #divCommentary {
     width: 30%;
     /*margin-bottom: 4em;*/
+}
+
+#margine {
+    margin-bottom: 6em;
 }
 
 .maclasse {
@@ -66,4 +70,20 @@
 
 #marge {
     margin-bottom: 4em;
+}
+
+#contact {
+    background-color: #F8F5F0;
+}
+
+@media (max-width: 1000px) {
+    h1 {
+        font-size: 2em;
+    }
+    h3 {
+        font-size: 2em;
+    }
+    .responsive {
+        display: inline-block;
+    }
 }

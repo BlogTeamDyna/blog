@@ -53,7 +53,6 @@ class HomeController extends AbstractController
         $searchData = new SearchData();
         $searchData->setSearch($request->query->get("recherche", ""));
 
-
         $searchForm = $this->createForm(SearchType::class, $searchData);
 
         if($searchData->getSearch() != "") {

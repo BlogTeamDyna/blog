@@ -29,10 +29,12 @@ class ArticleController extends AbstractController
         $user = $this->getUser();
 
         $article = new Article();
+
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         $article->setUser($user);
+
         $user->addArticle($article);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -120,7 +122,10 @@ class ArticleController extends AbstractController
                 'notice',
                 'Article modifié avec success'
             );
-            return $this->redirectToRoute('homepage');
+
+            return $this->redirectToRoute('article_details',[
+                'id' => $article->getId(),
+            ]);
         }
 
         return $this->render('article/new.html.twig', [

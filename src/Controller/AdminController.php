@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Commentary;
-use App\Entity\User;
 use App\Form\SearchType;
 use App\Model\SearchData;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,15 +12,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class AdminController extends AbstractController {
 
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'êtes pas autorisé à consulter la page admin')]
     #[Route("/admin", name: "adminpage")]
     public function index(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator): Response
     {
 
         $user = $this->getUser();
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        if($user->getRoles() ==! ['ROLE_ADMIN','ROLE_USER']) {
+            return  $this->redirectToRoute('homepage');
+        }
+
         $page = $request->query->get('page', 1);
 
         $articles = $em->getRepository(Article::class)->getAll();
@@ -44,7 +52,6 @@ class AdminController extends AbstractController {
             $articles,$page,$numberPerPage
         );
 
-
         return $this->render('admin/admin.html.twig', [
             'articles' => $articles,
             'commentary' => $commentary,
@@ -52,7 +59,6 @@ class AdminController extends AbstractController {
             'id' => $user->getId(),
             'pagination' => $pagination,
             'searchForm' => $searchForm,
-
         ]);
     }
 }
