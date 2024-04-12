@@ -15,7 +15,7 @@ class LoginController extends AbstractController
     {
         if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('homepage');
-        };
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -43,10 +43,6 @@ class LoginController extends AbstractController
             'notice',
             'vous êtes connecté'
         );
-
-        if(in_array('ROLE_ADMIN',$user->getRoles())) {
-            return $this->redirectToRoute('adminpage');
-        };
 
         return $this->redirectToRoute('homepage');
     }

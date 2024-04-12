@@ -3,36 +3,36 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-<div class="divGeneralDetail">
+<div class="divGeneralDetail pt-3" style="padding-bottom: 4em" >
 
-	<h3 class="font container display-7 border border-warning-subtle text-center rounded-3">Détails articles :</h3>
+{#	<h3 class="font container border border-warning-subtle text-center rounded-3" >Détails :</h3>#}
+    <h3 class="font text-center fw-bold">{{ article.title }}</h3>
+    <div class="text-center mt-3 mb-3">
+        <img width="270" height="300" src="{{ asset('uploads/' ~ article.image) }}" alt="avion"/>
+    </div>
+	<p class="font container text-center mb-4" style="max-width: 70%; font-family: 'Baskerville Old Face',sans-serif">{{ article.description }}</p>
 
-	<h5 class="font text-center">{{ article.title }}</h5>
-	<p class="font container text-center">{{ article.description }}</p>
-	<div class="text-center">
-		<img id="light" class="" src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Gorgosaurus_BW_transparent.png" alt="">
-	</div>
-	{% set role = article.getUser() %}
-	{% if app.user is same as(role) or is_granted('ROLE_ADMIN')%}
-		<div class="d-flex justify-content-center mt-2 mb-2" >
+
+{#	{% if app.user is same as(role) or is_granted('ROLE_ADMIN')%}#}
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="d-flex justify-content-center mb-4" >
 			<a id="font" class="btn btn-primary" href="{{path('article_edit', { id : article.id }) }}">Modifier</a>
-			<a id="font" class="btn btn-primary" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">Supprimer</a>
+{#			<a id="font" class="btn btn-primary ms-3" href="{{path('article_delete', { id : article.id }) }}" onclick="deleteAlert()">Supprimer</a>#}
 		</div>
 	{% endif %}
 
-	<div class="container text-center border border-dark-subtle rounded-5">
+	<div class="container text-center border border-dark-subtle rounded-2" style="max-width: 70%">
 		<p class="font mt-2">Dernière modification le {{ article.updated|date("d/m/Y H:i:s") }}</p>
 		<p class="font mb-2">Nombre de vues : {{ article.view }}</p>
 	</div>
 
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-
 		<div class="font mt-3 container text-center" id="divCommentary">
 			<div class="container">
 				{{ form_start(form) }}
 				<p id="textarea1">{{ form_widget(form.comment) }}</p>
-				<div class="d-flex justify-content-center">
-					<p class="text-center">{{ form_row(form.save) }}</p>
+				<div class="d-flex justify-content-center mb-5">
+					<p class="text-center mb-5">{{ form_row(form.save) }}</p>
 				</div>
 				{{ form_end(form) }}
 			</div>
@@ -45,10 +45,11 @@
 	{% else %}
 	{% endif %}
 
-	<div class="container">
+	<div class="container" style="margin-bottom: 5em;">
 		{% for commentary in commentaries %}
-		<p class="font card-text">{{ commentary.comment }}</p>
 		<p class="font card-text">{{ commentary.created|date("d/m/Y H:i:s") }}</p>
+		<p class="font card-text">{{ commentary.comment }}</p>
+
 		{% endfor %}
 	</div>
 
