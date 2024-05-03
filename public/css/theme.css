@@ -77,10 +77,10 @@
 }
 
 @media (max-width: 1000px) {
-    h1 {
-        font-size: 2em;
+    h3,p {
+        font-size: smaller;
     }
-    h3 {
+    h1 {
         font-size: 2em;
     }
     .responsive {

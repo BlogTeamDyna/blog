@@ -3,13 +3,13 @@
 {% block title %}Tag{% endblock %}
 
 {% block body %}
-    <h2 class="text-center">Tags</h2>
+    <h1 class="text-center mb-2">Tags</h1>
 
     <div class="text-center">
-        <button class="btn btn-dark">
+        <button class="btn btn-dark me-2">
             <a style="text-decoration: none;" href="{{ path('app_tag_new') }}">Créer un tag</a>
         </button>
-        <button class="btn btn-dark">
+        <button class="btn btn-dark ms-2">
             <a style="text-decoration: none;" href="{{ path('homepage') }}">Acceuil</a>
         </button>
     </div>
@@ -27,9 +27,9 @@
                 <td>{{ tag.id }}</td>
                 <td>{{ tag.content }}</td>
                 <td>
-                    <button class="btn btn-light">
-                        <a style="text-decoration: none;" href="{{ path('app_tag_show', {'id': tag.id}) }}">afficher</a>
-                    </button>
+{#                    <button class="btn btn-light">#}
+{#                        <a style="text-decoration: none;" href="{{ path('app_tag_show', {'id': tag.id}) }}">afficher</a>#}
+{#                    </button>#}
                     <button class="btn btn-light">
                         <a style="text-decoration: none;" href="{{ path('app_tag_edit', {'id': tag.id}) }}">modifer</a>
                     </button>

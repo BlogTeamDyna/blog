@@ -28,9 +28,7 @@ class SearchType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
             ]);
-//            ->add('save', SubmitType::class, [
-//                'label' => "rechercher"
-//            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver):void

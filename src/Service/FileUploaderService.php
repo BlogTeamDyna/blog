@@ -25,11 +25,9 @@ class FileUploaderService
             );
 
         } catch (FileException $e) {
-            // ... handle exception if something happens during file upload
             return $e->getMessage();
         }
 
-//        dd(file_exists($this->uploadsDirectory.'/'.$newFilename));
         return $newFilename;
 
     }
