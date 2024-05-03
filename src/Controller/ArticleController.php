@@ -22,7 +22,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ArticleController extends AbstractController
 {
     #[Route("/article/new", name: "article_create")]
-    public function createAction(Request $request, EntityManagerInterface $em, SluggerInterface $slugger,FileUploaderService $fileUploaderService,Article $article = null): Response
+    public function createAction(Request $request, EntityManagerInterface $em,FileUploaderService $fileUploaderService,Article $article = null): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
